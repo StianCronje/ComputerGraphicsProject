@@ -1,7 +1,6 @@
 #include <iostream>
 #include "Window.h"
 
-
 Window::Window(const char* title, int width, int height)
 {
 	std::cout << "Create window" << std::endl;
@@ -43,6 +42,14 @@ Window::Window(const char* title, int width, int height)
 	// Set the mouse at the center of the screen
 	glfwPollEvents();
 	glfwSetCursorPos(window, width / 2, height / 2);
+
+	// Enable depth test
+	glEnable(GL_DEPTH_TEST);
+	// Accept fragment if it closer to the camera than the former one
+	glDepthFunc(GL_LESS);
+
+	// Cull triangles which normal is not towards the camera
+	glEnable(GL_CULL_FACE);
 }
 
 
