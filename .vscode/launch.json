@@ -1,0 +1,36 @@
+{
+    "version": "0.2.0",
+    "configurations": [
+        {
+            "name": "C++ Launch",
+            "type": "cppdbg",
+            "request": "launch",
+            "program": "${workspaceRoot}/Builds/Mac_Build/cf",
+            "preLaunchTask": "build",
+            "stopAtEntry": false,
+            "cwd": "${workspaceRoot}",
+            "environment": [],
+            "externalConsole": true,
+            "MIMode": "gdb",
+            "linux": {
+                "setupCommands": [
+                    {
+                        "description": "Enable pretty-printing for gdb",
+                        "text": "-enable-pretty-printing",
+                        "ignoreFailures": true
+                    }
+                ]
+            },
+            "osx": {
+                
+                "program": "${workspaceRoot}/CubeField/CubeField/cf_mac",
+                // "program": "${workspaceRoot}/test",
+                "MIMode": "lldb"
+            },
+            "windows": {
+                "program": "${workspaceRoot}/Builds/Win_Build/cf",
+                "miDebuggerPath": "C:\\MinGw\\bin\\gdb.exe"
+            }
+        }
+    ]
+}

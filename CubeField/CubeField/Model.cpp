@@ -1,8 +1,8 @@
 #include "Model.h"
-#include "common\shader.hpp"
-#include "common\objloader.hpp"
-#include "common\controls.hpp"
-#include "common\texloader.hpp"
+#include "common/shader.hpp"
+#include "common/objloader.hpp"
+#include "common/controls.hpp"
+#include "common/texloader.hpp"
 
 
 
