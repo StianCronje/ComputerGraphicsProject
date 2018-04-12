@@ -12,9 +12,10 @@
             },
             "problemMatcher":"$gcc",
             
-            "windows": {
-                "command": "g++ CubeField/CubeField/main.cpp"
-            }  
+            "osx": {
+                "command": "g++ -std=c++11 ${workspaceFolder}/CubeField/CubeField/common/*.cpp ${workspaceFolder}/CubeField/CubeField/*.cpp -o ${workspaceFolder}/CubeField/CubeField/cf_mac -lGLFW -lGLEW -lSOIL -framework OpenGL -framework GLUT -framework CoreFoundation"
+                // "command": "g++ test.cpp -o ${workspaceFolder}/Builds/Mac_Build/cf -I ${workspaceFolder} -lGLFW -lGLEW -framework OpenGL -framework GLUT"
+            }
         }
     ]
 }
