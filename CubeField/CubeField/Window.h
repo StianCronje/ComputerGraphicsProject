@@ -11,10 +11,19 @@
 
 class Window
 {
-public:
-	GLFWwindow * window;
+private:
+	const char* _title;
+	int _width, _height;
+	GLFWwindow* _window;
 public:
 	Window(const char* title, int width, int height);
 	~Window();
+	void clear() const;
+	void update();
+	bool closed() const;
+
+	inline GLFWwindow* getWindow() const { return _window; }
+private:
+	bool init();
 };
 
