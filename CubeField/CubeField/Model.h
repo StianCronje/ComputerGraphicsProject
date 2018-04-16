@@ -42,5 +42,8 @@ public:
 	void SetTranslation(glm::vec3 translation);
 	void SetRotation(glm::vec3 rotation);
 	void SetScale(glm::vec3 scale);
+	glm::vec3 GetTranslation();
+	glm::vec3 GetRotation();
+	glm::vec3 GetScale();
 };
 

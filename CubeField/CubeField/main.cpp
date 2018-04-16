@@ -21,6 +21,23 @@ int main() {
 		gameWindow.clear();
 
 		//=== Loop Here ===
+		
+		// example on how to get a key input
+		if(gameWindow.isKeyPressed(GLFW_KEY_A))
+		{
+			std::cout << "'A' is pressed" << std::endl;
+		}
+
+		// example on how to get mouse buttons
+		if(gameWindow.isMouseButtonPressed(GLFW_MOUSE_BUTTON_1))
+		{
+			std::cout << "'LMB' is pressed" << std::endl;			
+		}
+
+		// example how tp track the mouse position;
+		double x, y;
+		gameWindow.getMousePosition(x, y);
+		std::cout << "Mouse Position: (" << x << ", " << y << ")" << std::endl;
 
 		truck.Draw();
 
