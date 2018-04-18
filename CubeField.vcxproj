@@ -1,0 +1,388 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup Label="ProjectConfigurations">
+    <ProjectConfiguration Include="Debug|Win32">
+      <Configuration>Debug</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Release|Win32">
+      <Configuration>Release</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Debug|x64">
+      <Configuration>Debug</Configuration>
+      <Platform>x64</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Release|x64">
+      <Configuration>Release</Configuration>
+      <Platform>x64</Platform>
+    </ProjectConfiguration>
+  </ItemGroup>
+  <PropertyGroup Label="Globals">
+    <VCProjectVersion>15.0</VCProjectVersion>
+    <ProjectGuid>{0A123F89-C3CA-41CD-85FF-230231D58A8F}</ProjectGuid>
+    <Keyword>Win32Proj</Keyword>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
+    <ConfigurationType>Application</ConfigurationType>
+    <UseDebugLibraries>true</UseDebugLibraries>
+    <PlatformToolset>v141</PlatformToolset>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" Label="Configuration">
+    <ConfigurationType>Application</ConfigurationType>
+    <UseDebugLibraries>false</UseDebugLibraries>
+    <PlatformToolset>v141</PlatformToolset>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'" Label="Configuration">
+    <ConfigurationType>Application</ConfigurationType>
+    <UseDebugLibraries>true</UseDebugLibraries>
+    <PlatformToolset>v141</PlatformToolset>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'" Label="Configuration">
+    <ConfigurationType>Application</ConfigurationType>
+    <UseDebugLibraries>false</UseDebugLibraries>
+    <PlatformToolset>v141</PlatformToolset>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.props" />
+  <ImportGroup Label="ExtensionSettings">
+  </ImportGroup>
+  <ImportGroup Label="Shared">
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <PropertyGroup Label="UserMacros" />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <LinkIncremental>true</LinkIncremental>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <LinkIncremental>true</LinkIncremental>
+  </PropertyGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <ClCompile>
+      <PreprocessorDefinitions>WIN32;_DEBUG;_WINDOWS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <RuntimeLibrary>MultiThreadedDebugDLL</RuntimeLibrary>
+      <WarningLevel>Level3</WarningLevel>
+      <DebugInformationFormat>ProgramDatabase</DebugInformationFormat>
+      <Optimization>Disabled</Optimization>
+    </ClCompile>
+    <Link>
+      <TargetMachine>MachineX86</TargetMachine>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+      <SubSystem>Windows</SubSystem>
+    </Link>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <ClCompile>
+      <PreprocessorDefinitions>WIN32;NDEBUG;_WINDOWS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <RuntimeLibrary>MultiThreadedDLL</RuntimeLibrary>
+      <WarningLevel>Level3</WarningLevel>
+      <DebugInformationFormat>ProgramDatabase</DebugInformationFormat>
+    </ClCompile>
+    <Link>
+      <TargetMachine>MachineX86</TargetMachine>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+      <SubSystem>Windows</SubSystem>
+      <EnableCOMDATFolding>true</EnableCOMDATFolding>
+      <OptimizeReferences>true</OptimizeReferences>
+    </Link>
+  </ItemDefinitionGroup>
+  <ItemGroup>
+    <ClCompile Include="cubefield\cubefield\Detect.cpp" />
+    <ClCompile Include="cubefield\packages\glmathematics.0.9.5.4\build\native\include\glm\detail\dummy.cpp" />
+    <ClCompile Include="cubefield\packages\glmathematics.0.9.5.4\build\native\include\glm\detail\glm.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="cubefield\cubefield\Detect.h" />
+    <ClInclude Include="cubefield\packages\freeglut.2.8.1.15\build\native\include\gl\freeglut.h" />
+    <ClInclude Include="cubefield\packages\freeglut.2.8.1.15\build\native\include\gl\freeglut_ext.h" />
+    <ClInclude Include="cubefield\packages\freeglut.2.8.1.15\build\native\include\gl\freeglut_std.h" />
+    <ClInclude Include="cubefield\packages\freeglut.2.8.1.15\build\native\include\gl\glut.h" />
+    <ClInclude Include="cubefield\packages\glmathematics.0.9.5.4\build\native\include\glm\common.hpp" />
+    <ClInclude Include="cubefield\packages\glmathematics.0.9.5.4\build\native\include\glm\detail\func_common.hpp" />
+    <ClInclude Include="cubefield\packages\glmathematics.0.9.5.4\build\native\include\glm\detail\func_exponential.hpp" />
+    <ClInclude Include="cubefield\packages\glmathematics.0.9.5.4\build\native\include\glm\detail\func_geometric.hpp" />
+    <ClInclude Include="cubefield\packages\glmathematics.0.9.5.4\build\native\include\glm\detail\func_integer.hpp" />
+    <ClInclude Include="cubefield\packages\glmathematics.0.9.5.4\build\native\include\glm\detail\func_matrix.hpp" />
+    <ClInclude Include="cubefield\packages\glmathematics.0.9.5.4\build\native\include\glm\detail\func_packing.hpp" />
+    <ClInclude Include="cubefield\packages\glmathematics.0.9.5.4\build\native\include\glm\detail\func_trigonometric.hpp" />
+    <ClInclude Include="cubefield\packages\glmathematics.0.9.5.4\build\native\include\glm\detail\func_vector_relational.hpp" />
+    <ClInclude Include="cubefield\packages\glmathematics.0.9.5.4\build\native\include\glm\detail\precision.hpp" />
+    <ClInclude Include="cubefield\packages\glmathematics.0.9.5.4\build\native\include\glm\detail\setup.hpp" />
+    <ClInclude Include="cubefield\packages\glmathematics.0.9.5.4\build\native\include\glm\detail\type_float.hpp" />
+    <ClInclude Include="cubefield\packages\glmathematics.0.9.5.4\build\native\include\glm\detail\type_gentype.hpp" />
+    <ClInclude Include="cubefield\packages\glmathematics.0.9.5.4\build\native\include\glm\detail\type_half.hpp" />
+    <ClInclude Include="cubefield\packages\glmathematics.0.9.5.4\build\native\include\glm\detail\type_int.hpp" />
+    <ClInclude Include="cubefield\packages\glmathematics.0.9.5.4\build\native\include\glm\detail\type_mat.hpp" />
+    <ClInclude Include="cubefield\packages\glmathematics.0.9.5.4\build\native\include\glm\detail\type_mat2x2.hpp" />
+    <ClInclude Include="cubefield\packages\glmathematics.0.9.5.4\build\native\include\glm\detail\type_mat2x3.hpp" />
+    <ClInclude Include="cubefield\packages\glmathematics.0.9.5.4\build\native\include\glm\detail\type_mat2x4.hpp" />
+    <ClInclude Include="cubefield\packages\glmathematics.0.9.5.4\build\native\include\glm\detail\type_mat3x2.hpp" />
+    <ClInclude Include="cubefield\packages\glmathematics.0.9.5.4\build\native\include\glm\detail\type_mat3x3.hpp" />
+    <ClInclude Include="cubefield\packages\glmathematics.0.9.5.4\build\native\include\glm\detail\type_mat3x4.hpp" />
+    <ClInclude Include="cubefield\packages\glmathematics.0.9.5.4\build\native\include\glm\detail\type_mat4x2.hpp" />
+    <ClInclude Include="cubefield\packages\glmathematics.0.9.5.4\build\native\include\glm\detail\type_mat4x3.hpp" />
+    <ClInclude Include="cubefield\packages\glmathematics.0.9.5.4\build\native\include\glm\detail\type_mat4x4.hpp" />
+    <ClInclude Include="cubefield\packages\glmathematics.0.9.5.4\build\native\include\glm\detail\type_vec.hpp" />
+    <ClInclude Include="cubefield\packages\glmathematics.0.9.5.4\build\native\include\glm\detail\type_vec1.hpp" />
+    <ClInclude Include="cubefield\packages\glmathematics.0.9.5.4\build\native\include\glm\detail\type_vec2.hpp" />
+    <ClInclude Include="cubefield\packages\glmathematics.0.9.5.4\build\native\include\glm\detail\type_vec3.hpp" />
+    <ClInclude Include="cubefield\packages\glmathematics.0.9.5.4\build\native\include\glm\detail\type_vec4.hpp" />
+    <ClInclude Include="cubefield\packages\glmathematics.0.9.5.4\build\native\include\glm\detail\_features.hpp" />
+    <ClInclude Include="cubefield\packages\glmathematics.0.9.5.4\build\native\include\glm\detail\_fixes.hpp" />
+    <ClInclude Include="cubefield\packages\glmathematics.0.9.5.4\build\native\include\glm\detail\_noise.hpp" />
+    <ClInclude Include="cubefield\packages\glmathematics.0.9.5.4\build\native\include\glm\detail\_swizzle.hpp" />
+    <ClInclude Include="cubefield\packages\glmathematics.0.9.5.4\build\native\include\glm\detail\_swizzle_func.hpp" />
+    <ClInclude Include="cubefield\packages\glmathematics.0.9.5.4\build\native\include\glm\detail\_vectorize.hpp" />
+    <ClInclude Include="cubefield\packages\glmathematics.0.9.5.4\build\native\include\glm\exponential.hpp" />
+    <ClInclude Include="cubefield\packages\glmathematics.0.9.5.4\build\native\include\glm\ext.hpp" />
+    <ClInclude Include="cubefield\packages\glmathematics.0.9.5.4\build\native\include\glm\fwd.hpp" />
+    <ClInclude Include="cubefield\packages\glmathematics.0.9.5.4\build\native\include\glm\geometric.hpp" />
+    <ClInclude Include="cubefield\packages\glmathematics.0.9.5.4\build\native\include\glm\glm.hpp" />
+    <ClInclude Include="cubefield\packages\glmathematics.0.9.5.4\build\native\include\glm\gtc\bitfield.hpp" />
+    <ClInclude Include="cubefield\packages\glmathematics.0.9.5.4\build\native\include\glm\gtc\color_space.hpp" />
+    <ClInclude Include="cubefield\packages\glmathematics.0.9.5.4\build\native\include\glm\gtc\constants.hpp" />
+    <ClInclude Include="cubefield\packages\glmathematics.0.9.5.4\build\native\include\glm\gtc\epsilon.hpp" />
+    <ClInclude Include="cubefield\packages\glmathematics.0.9.5.4\build\native\include\glm\gtc\functions.hpp" />
+    <ClInclude Include="cubefield\packages\glmathematics.0.9.5.4\build\native\include\glm\gtc\integer.hpp" />
+    <ClInclude Include="cubefield\packages\glmathematics.0.9.5.4\build\native\include\glm\gtc\matrix_access.hpp" />
+    <ClInclude Include="cubefield\packages\glmathematics.0.9.5.4\build\native\include\glm\gtc\matrix_integer.hpp" />
+    <ClInclude Include="cubefield\packages\glmathematics.0.9.5.4\build\native\include\glm\gtc\matrix_inverse.hpp" />
+    <ClInclude Include="cubefield\packages\glmathematics.0.9.5.4\build\native\include\glm\gtc\matrix_transform.hpp" />
+    <ClInclude Include="cubefield\packages\glmathematics.0.9.5.4\build\native\include\glm\gtc\noise.hpp" />
+    <ClInclude Include="cubefield\packages\glmathematics.0.9.5.4\build\native\include\glm\gtc\packing.hpp" />
+    <ClInclude Include="cubefield\packages\glmathematics.0.9.5.4\build\native\include\glm\gtc\quaternion.hpp" />
+    <ClInclude Include="cubefield\packages\glmathematics.0.9.5.4\build\native\include\glm\gtc\random.hpp" />
+    <ClInclude Include="cubefield\packages\glmathematics.0.9.5.4\build\native\include\glm\gtc\reciprocal.hpp" />
+    <ClInclude Include="cubefield\packages\glmathematics.0.9.5.4\build\native\include\glm\gtc\round.hpp" />
+    <ClInclude Include="cubefield\packages\glmathematics.0.9.5.4\build\native\include\glm\gtc\type_aligned.hpp" />
+    <ClInclude Include="cubefield\packages\glmathematics.0.9.5.4\build\native\include\glm\gtc\type_precision.hpp" />
+    <ClInclude Include="cubefield\packages\glmathematics.0.9.5.4\build\native\include\glm\gtc\type_ptr.hpp" />
+    <ClInclude Include="cubefield\packages\glmathematics.0.9.5.4\build\native\include\glm\gtc\ulp.hpp" />
+    <ClInclude Include="cubefield\packages\glmathematics.0.9.5.4\build\native\include\glm\gtc\vec1.hpp" />
+    <ClInclude Include="cubefield\packages\glmathematics.0.9.5.4\build\native\include\glm\gtx\associated_min_max.hpp" />
+    <ClInclude Include="cubefield\packages\glmathematics.0.9.5.4\build\native\include\glm\gtx\bit.hpp" />
+    <ClInclude Include="cubefield\packages\glmathematics.0.9.5.4\build\native\include\glm\gtx\closest_point.hpp" />
+    <ClInclude Include="cubefield\packages\glmathematics.0.9.5.4\build\native\include\glm\gtx\color_space.hpp" />
+    <ClInclude Include="cubefield\packages\glmathematics.0.9.5.4\build\native\include\glm\gtx\color_space_YCoCg.hpp" />
+    <ClInclude Include="cubefield\packages\glmathematics.0.9.5.4\build\native\include\glm\gtx\common.hpp" />
+    <ClInclude Include="cubefield\packages\glmathematics.0.9.5.4\build\native\include\glm\gtx\compatibility.hpp" />
+    <ClInclude Include="cubefield\packages\glmathematics.0.9.5.4\build\native\include\glm\gtx\component_wise.hpp" />
+    <ClInclude Include="cubefield\packages\glmathematics.0.9.5.4\build\native\include\glm\gtx\dual_quaternion.hpp" />
+    <ClInclude Include="cubefield\packages\glmathematics.0.9.5.4\build\native\include\glm\gtx\euler_angles.hpp" />
+    <ClInclude Include="cubefield\packages\glmathematics.0.9.5.4\build\native\include\glm\gtx\extend.hpp" />
+    <ClInclude Include="cubefield\packages\glmathematics.0.9.5.4\build\native\include\glm\gtx\extended_min_max.hpp" />
+    <ClInclude Include="cubefield\packages\glmathematics.0.9.5.4\build\native\include\glm\gtx\fast_exponential.hpp" />
+    <ClInclude Include="cubefield\packages\glmathematics.0.9.5.4\build\native\include\glm\gtx\fast_square_root.hpp" />
+    <ClInclude Include="cubefield\packages\glmathematics.0.9.5.4\build\native\include\glm\gtx\fast_trigonometry.hpp" />
+    <ClInclude Include="cubefield\packages\glmathematics.0.9.5.4\build\native\include\glm\gtx\gradient_paint.hpp" />
+    <ClInclude Include="cubefield\packages\glmathematics.0.9.5.4\build\native\include\glm\gtx\handed_coordinate_space.hpp" />
+    <ClInclude Include="cubefield\packages\glmathematics.0.9.5.4\build\native\include\glm\gtx\hash.hpp" />
+    <ClInclude Include="cubefield\packages\glmathematics.0.9.5.4\build\native\include\glm\gtx\integer.hpp" />
+    <ClInclude Include="cubefield\packages\glmathematics.0.9.5.4\build\native\include\glm\gtx\intersect.hpp" />
+    <ClInclude Include="cubefield\packages\glmathematics.0.9.5.4\build\native\include\glm\gtx\io.hpp" />
+    <ClInclude Include="cubefield\packages\glmathematics.0.9.5.4\build\native\include\glm\gtx\log_base.hpp" />
+    <ClInclude Include="cubefield\packages\glmathematics.0.9.5.4\build\native\include\glm\gtx\matrix_cross_product.hpp" />
+    <ClInclude Include="cubefield\packages\glmathematics.0.9.5.4\build\native\include\glm\gtx\matrix_decompose.hpp" />
+    <ClInclude Include="cubefield\packages\glmathematics.0.9.5.4\build\native\include\glm\gtx\matrix_interpolation.hpp" />
+    <ClInclude Include="cubefield\packages\glmathematics.0.9.5.4\build\native\include\glm\gtx\matrix_major_storage.hpp" />
+    <ClInclude Include="cubefield\packages\glmathematics.0.9.5.4\build\native\include\glm\gtx\matrix_operation.hpp" />
+    <ClInclude Include="cubefield\packages\glmathematics.0.9.5.4\build\native\include\glm\gtx\matrix_query.hpp" />
+    <ClInclude Include="cubefield\packages\glmathematics.0.9.5.4\build\native\include\glm\gtx\matrix_transform_2d.hpp" />
+    <ClInclude Include="cubefield\packages\glmathematics.0.9.5.4\build\native\include\glm\gtx\mixed_product.hpp" />
+    <ClInclude Include="cubefield\packages\glmathematics.0.9.5.4\build\native\include\glm\gtx\norm.hpp" />
+    <ClInclude Include="cubefield\packages\glmathematics.0.9.5.4\build\native\include\glm\gtx\normal.hpp" />
+    <ClInclude Include="cubefield\packages\glmathematics.0.9.5.4\build\native\include\glm\gtx\normalize_dot.hpp" />
+    <ClInclude Include="cubefield\packages\glmathematics.0.9.5.4\build\native\include\glm\gtx\number_precision.hpp" />
+    <ClInclude Include="cubefield\packages\glmathematics.0.9.5.4\build\native\include\glm\gtx\optimum_pow.hpp" />
+    <ClInclude Include="cubefield\packages\glmathematics.0.9.5.4\build\native\include\glm\gtx\orthonormalize.hpp" />
+    <ClInclude Include="cubefield\packages\glmathematics.0.9.5.4\build\native\include\glm\gtx\perpendicular.hpp" />
+    <ClInclude Include="cubefield\packages\glmathematics.0.9.5.4\build\native\include\glm\gtx\polar_coordinates.hpp" />
+    <ClInclude Include="cubefield\packages\glmathematics.0.9.5.4\build\native\include\glm\gtx\projection.hpp" />
+    <ClInclude Include="cubefield\packages\glmathematics.0.9.5.4\build\native\include\glm\gtx\quaternion.hpp" />
+    <ClInclude Include="cubefield\packages\glmathematics.0.9.5.4\build\native\include\glm\gtx\range.hpp" />
+    <ClInclude Include="cubefield\packages\glmathematics.0.9.5.4\build\native\include\glm\gtx\raw_data.hpp" />
+    <ClInclude Include="cubefield\packages\glmathematics.0.9.5.4\build\native\include\glm\gtx\rotate_normalized_axis.hpp" />
+    <ClInclude Include="cubefield\packages\glmathematics.0.9.5.4\build\native\include\glm\gtx\rotate_vector.hpp" />
+    <ClInclude Include="cubefield\packages\glmathematics.0.9.5.4\build\native\include\glm\gtx\scalar_multiplication.hpp" />
+    <ClInclude Include="cubefield\packages\glmathematics.0.9.5.4\build\native\include\glm\gtx\scalar_relational.hpp" />
+    <ClInclude Include="cubefield\packages\glmathematics.0.9.5.4\build\native\include\glm\gtx\simd_mat4.hpp" />
+    <ClInclude Include="cubefield\packages\glmathematics.0.9.5.4\build\native\include\glm\gtx\simd_quat.hpp" />
+    <ClInclude Include="cubefield\packages\glmathematics.0.9.5.4\build\native\include\glm\gtx\simd_vec4.hpp" />
+    <ClInclude Include="cubefield\packages\glmathematics.0.9.5.4\build\native\include\glm\gtx\spline.hpp" />
+    <ClInclude Include="cubefield\packages\glmathematics.0.9.5.4\build\native\include\glm\gtx\std_based_type.hpp" />
+    <ClInclude Include="cubefield\packages\glmathematics.0.9.5.4\build\native\include\glm\gtx\string_cast.hpp" />
+    <ClInclude Include="cubefield\packages\glmathematics.0.9.5.4\build\native\include\glm\gtx\transform.hpp" />
+    <ClInclude Include="cubefield\packages\glmathematics.0.9.5.4\build\native\include\glm\gtx\transform2.hpp" />
+    <ClInclude Include="cubefield\packages\glmathematics.0.9.5.4\build\native\include\glm\gtx\type_aligned.hpp" />
+    <ClInclude Include="cubefield\packages\glmathematics.0.9.5.4\build\native\include\glm\gtx\type_trait.hpp" />
+    <ClInclude Include="cubefield\packages\glmathematics.0.9.5.4\build\native\include\glm\gtx\vector_angle.hpp" />
+    <ClInclude Include="cubefield\packages\glmathematics.0.9.5.4\build\native\include\glm\gtx\vector_query.hpp" />
+    <ClInclude Include="cubefield\packages\glmathematics.0.9.5.4\build\native\include\glm\gtx\wrap.hpp" />
+    <ClInclude Include="cubefield\packages\glmathematics.0.9.5.4\build\native\include\glm\integer.hpp" />
+    <ClInclude Include="cubefield\packages\glmathematics.0.9.5.4\build\native\include\glm\mat2x2.hpp" />
+    <ClInclude Include="cubefield\packages\glmathematics.0.9.5.4\build\native\include\glm\mat2x3.hpp" />
+    <ClInclude Include="cubefield\packages\glmathematics.0.9.5.4\build\native\include\glm\mat2x4.hpp" />
+    <ClInclude Include="cubefield\packages\glmathematics.0.9.5.4\build\native\include\glm\mat3x2.hpp" />
+    <ClInclude Include="cubefield\packages\glmathematics.0.9.5.4\build\native\include\glm\mat3x3.hpp" />
+    <ClInclude Include="cubefield\packages\glmathematics.0.9.5.4\build\native\include\glm\mat3x4.hpp" />
+    <ClInclude Include="cubefield\packages\glmathematics.0.9.5.4\build\native\include\glm\mat4x2.hpp" />
+    <ClInclude Include="cubefield\packages\glmathematics.0.9.5.4\build\native\include\glm\mat4x3.hpp" />
+    <ClInclude Include="cubefield\packages\glmathematics.0.9.5.4\build\native\include\glm\mat4x4.hpp" />
+    <ClInclude Include="cubefield\packages\glmathematics.0.9.5.4\build\native\include\glm\matrix.hpp" />
+    <ClInclude Include="cubefield\packages\glmathematics.0.9.5.4\build\native\include\glm\packing.hpp" />
+    <ClInclude Include="cubefield\packages\glmathematics.0.9.5.4\build\native\include\glm\simd\common.h" />
+    <ClInclude Include="cubefield\packages\glmathematics.0.9.5.4\build\native\include\glm\simd\exponential.h" />
+    <ClInclude Include="cubefield\packages\glmathematics.0.9.5.4\build\native\include\glm\simd\geometric.h" />
+    <ClInclude Include="cubefield\packages\glmathematics.0.9.5.4\build\native\include\glm\simd\integer.h" />
+    <ClInclude Include="cubefield\packages\glmathematics.0.9.5.4\build\native\include\glm\simd\matrix.h" />
+    <ClInclude Include="cubefield\packages\glmathematics.0.9.5.4\build\native\include\glm\simd\packing.h" />
+    <ClInclude Include="cubefield\packages\glmathematics.0.9.5.4\build\native\include\glm\simd\platform.h" />
+    <ClInclude Include="cubefield\packages\glmathematics.0.9.5.4\build\native\include\glm\simd\trigonometric.h" />
+    <ClInclude Include="cubefield\packages\glmathematics.0.9.5.4\build\native\include\glm\simd\vector_relational.h" />
+    <ClInclude Include="cubefield\packages\glmathematics.0.9.5.4\build\native\include\glm\trigonometric.hpp" />
+    <ClInclude Include="cubefield\packages\glmathematics.0.9.5.4\build\native\include\glm\vec2.hpp" />
+    <ClInclude Include="cubefield\packages\glmathematics.0.9.5.4\build\native\include\glm\vec3.hpp" />
+    <ClInclude Include="cubefield\packages\glmathematics.0.9.5.4\build\native\include\glm\vec4.hpp" />
+    <ClInclude Include="cubefield\packages\glmathematics.0.9.5.4\build\native\include\glm\vector_relational.hpp" />
+    <ClInclude Include="cubefield\packages\nupengl.core.0.1.0.1\build\native\include\glfw\glfw3.h" />
+    <ClInclude Include="cubefield\packages\nupengl.core.0.1.0.1\build\native\include\glfw\glfw3native.h" />
+    <ClInclude Include="cubefield\packages\nupengl.core.0.1.0.1\build\native\include\gl\freeglut.h" />
+    <ClInclude Include="cubefield\packages\nupengl.core.0.1.0.1\build\native\include\gl\freeglut_ext.h" />
+    <ClInclude Include="cubefield\packages\nupengl.core.0.1.0.1\build\native\include\gl\freeglut_std.h" />
+    <ClInclude Include="cubefield\packages\nupengl.core.0.1.0.1\build\native\include\gl\glew.h" />
+    <ClInclude Include="cubefield\packages\nupengl.core.0.1.0.1\build\native\include\gl\glut.h" />
+    <ClInclude Include="cubefield\packages\nupengl.core.0.1.0.1\build\native\include\gl\glxew.h" />
+    <ClInclude Include="cubefield\packages\nupengl.core.0.1.0.1\build\native\include\gl\wglew.h" />
+    <ClInclude Include="cubefield\packages\soil.1.16.0\build\native\include\soil.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="cubefield\packages\glmathematics.0.9.5.4\build\native\include\glm\detail\func_common.inl" />
+    <None Include="cubefield\packages\glmathematics.0.9.5.4\build\native\include\glm\detail\func_common_simd.inl" />
+    <None Include="cubefield\packages\glmathematics.0.9.5.4\build\native\include\glm\detail\func_exponential.inl" />
+    <None Include="cubefield\packages\glmathematics.0.9.5.4\build\native\include\glm\detail\func_exponential_simd.inl" />
+    <None Include="cubefield\packages\glmathematics.0.9.5.4\build\native\include\glm\detail\func_geometric.inl" />
+    <None Include="cubefield\packages\glmathematics.0.9.5.4\build\native\include\glm\detail\func_geometric_simd.inl" />
+    <None Include="cubefield\packages\glmathematics.0.9.5.4\build\native\include\glm\detail\func_integer.inl" />
+    <None Include="cubefield\packages\glmathematics.0.9.5.4\build\native\include\glm\detail\func_integer_simd.inl" />
+    <None Include="cubefield\packages\glmathematics.0.9.5.4\build\native\include\glm\detail\func_matrix.inl" />
+    <None Include="cubefield\packages\glmathematics.0.9.5.4\build\native\include\glm\detail\func_matrix_simd.inl" />
+    <None Include="cubefield\packages\glmathematics.0.9.5.4\build\native\include\glm\detail\func_packing.inl" />
+    <None Include="cubefield\packages\glmathematics.0.9.5.4\build\native\include\glm\detail\func_packing_simd.inl" />
+    <None Include="cubefield\packages\glmathematics.0.9.5.4\build\native\include\glm\detail\func_trigonometric.inl" />
+    <None Include="cubefield\packages\glmathematics.0.9.5.4\build\native\include\glm\detail\func_trigonometric_simd.inl" />
+    <None Include="cubefield\packages\glmathematics.0.9.5.4\build\native\include\glm\detail\func_vector_relational.inl" />
+    <None Include="cubefield\packages\glmathematics.0.9.5.4\build\native\include\glm\detail\func_vector_relational_simd.inl" />
+    <None Include="cubefield\packages\glmathematics.0.9.5.4\build\native\include\glm\detail\type_gentype.inl" />
+    <None Include="cubefield\packages\glmathematics.0.9.5.4\build\native\include\glm\detail\type_half.inl" />
+    <None Include="cubefield\packages\glmathematics.0.9.5.4\build\native\include\glm\detail\type_mat.inl" />
+    <None Include="cubefield\packages\glmathematics.0.9.5.4\build\native\include\glm\detail\type_mat2x2.inl" />
+    <None Include="cubefield\packages\glmathematics.0.9.5.4\build\native\include\glm\detail\type_mat2x3.inl" />
+    <None Include="cubefield\packages\glmathematics.0.9.5.4\build\native\include\glm\detail\type_mat2x4.inl" />
+    <None Include="cubefield\packages\glmathematics.0.9.5.4\build\native\include\glm\detail\type_mat3x2.inl" />
+    <None Include="cubefield\packages\glmathematics.0.9.5.4\build\native\include\glm\detail\type_mat3x3.inl" />
+    <None Include="cubefield\packages\glmathematics.0.9.5.4\build\native\include\glm\detail\type_mat3x4.inl" />
+    <None Include="cubefield\packages\glmathematics.0.9.5.4\build\native\include\glm\detail\type_mat4x2.inl" />
+    <None Include="cubefield\packages\glmathematics.0.9.5.4\build\native\include\glm\detail\type_mat4x3.inl" />
+    <None Include="cubefield\packages\glmathematics.0.9.5.4\build\native\include\glm\detail\type_mat4x4.inl" />
+    <None Include="cubefield\packages\glmathematics.0.9.5.4\build\native\include\glm\detail\type_mat4x4_simd.inl" />
+    <None Include="cubefield\packages\glmathematics.0.9.5.4\build\native\include\glm\detail\type_vec.inl" />
+    <None Include="cubefield\packages\glmathematics.0.9.5.4\build\native\include\glm\detail\type_vec1.inl" />
+    <None Include="cubefield\packages\glmathematics.0.9.5.4\build\native\include\glm\detail\type_vec2.inl" />
+    <None Include="cubefield\packages\glmathematics.0.9.5.4\build\native\include\glm\detail\type_vec3.inl" />
+    <None Include="cubefield\packages\glmathematics.0.9.5.4\build\native\include\glm\detail\type_vec4.inl" />
+    <None Include="cubefield\packages\glmathematics.0.9.5.4\build\native\include\glm\detail\type_vec4_simd.inl" />
+    <None Include="cubefield\packages\glmathematics.0.9.5.4\build\native\include\glm\gtc\bitfield.inl" />
+    <None Include="cubefield\packages\glmathematics.0.9.5.4\build\native\include\glm\gtc\color_encoding.inl" />
+    <None Include="cubefield\packages\glmathematics.0.9.5.4\build\native\include\glm\gtc\color_space.inl" />
+    <None Include="cubefield\packages\glmathematics.0.9.5.4\build\native\include\glm\gtc\constants.inl" />
+    <None Include="cubefield\packages\glmathematics.0.9.5.4\build\native\include\glm\gtc\epsilon.inl" />
+    <None Include="cubefield\packages\glmathematics.0.9.5.4\build\native\include\glm\gtc\functions.inl" />
+    <None Include="cubefield\packages\glmathematics.0.9.5.4\build\native\include\glm\gtc\integer.inl" />
+    <None Include="cubefield\packages\glmathematics.0.9.5.4\build\native\include\glm\gtc\matrix_access.inl" />
+    <None Include="cubefield\packages\glmathematics.0.9.5.4\build\native\include\glm\gtc\matrix_inverse.inl" />
+    <None Include="cubefield\packages\glmathematics.0.9.5.4\build\native\include\glm\gtc\matrix_transform.inl" />
+    <None Include="cubefield\packages\glmathematics.0.9.5.4\build\native\include\glm\gtc\noise.inl" />
+    <None Include="cubefield\packages\glmathematics.0.9.5.4\build\native\include\glm\gtc\packing.inl" />
+    <None Include="cubefield\packages\glmathematics.0.9.5.4\build\native\include\glm\gtc\quaternion.inl" />
+    <None Include="cubefield\packages\glmathematics.0.9.5.4\build\native\include\glm\gtc\quaternion_simd.inl" />
+    <None Include="cubefield\packages\glmathematics.0.9.5.4\build\native\include\glm\gtc\random.inl" />
+    <None Include="cubefield\packages\glmathematics.0.9.5.4\build\native\include\glm\gtc\reciprocal.inl" />
+    <None Include="cubefield\packages\glmathematics.0.9.5.4\build\native\include\glm\gtc\round.inl" />
+    <None Include="cubefield\packages\glmathematics.0.9.5.4\build\native\include\glm\gtc\type_precision.inl" />
+    <None Include="cubefield\packages\glmathematics.0.9.5.4\build\native\include\glm\gtc\type_ptr.inl" />
+    <None Include="cubefield\packages\glmathematics.0.9.5.4\build\native\include\glm\gtc\ulp.inl" />
+    <None Include="cubefield\packages\glmathematics.0.9.5.4\build\native\include\glm\gtc\vec1.inl" />
+    <None Include="cubefield\packages\glmathematics.0.9.5.4\build\native\include\glm\gtx\associated_min_max.inl" />
+    <None Include="cubefield\packages\glmathematics.0.9.5.4\build\native\include\glm\gtx\bit.inl" />
+    <None Include="cubefield\packages\glmathematics.0.9.5.4\build\native\include\glm\gtx\closest_point.inl" />
+    <None Include="cubefield\packages\glmathematics.0.9.5.4\build\native\include\glm\gtx\color_space.inl" />
+    <None Include="cubefield\packages\glmathematics.0.9.5.4\build\native\include\glm\gtx\color_space_YCoCg.inl" />
+    <None Include="cubefield\packages\glmathematics.0.9.5.4\build\native\include\glm\gtx\common.inl" />
+    <None Include="cubefield\packages\glmathematics.0.9.5.4\build\native\include\glm\gtx\compatibility.inl" />
+    <None Include="cubefield\packages\glmathematics.0.9.5.4\build\native\include\glm\gtx\component_wise.inl" />
+    <None Include="cubefield\packages\glmathematics.0.9.5.4\build\native\include\glm\gtx\dual_quaternion.inl" />
+    <None Include="cubefield\packages\glmathematics.0.9.5.4\build\native\include\glm\gtx\euler_angles.inl" />
+    <None Include="cubefield\packages\glmathematics.0.9.5.4\build\native\include\glm\gtx\extend.inl" />
+    <None Include="cubefield\packages\glmathematics.0.9.5.4\build\native\include\glm\gtx\extended_min_max.inl" />
+    <None Include="cubefield\packages\glmathematics.0.9.5.4\build\native\include\glm\gtx\fast_exponential.inl" />
+    <None Include="cubefield\packages\glmathematics.0.9.5.4\build\native\include\glm\gtx\fast_square_root.inl" />
+    <None Include="cubefield\packages\glmathematics.0.9.5.4\build\native\include\glm\gtx\fast_trigonometry.inl" />
+    <None Include="cubefield\packages\glmathematics.0.9.5.4\build\native\include\glm\gtx\float_notmalize.inl" />
+    <None Include="cubefield\packages\glmathematics.0.9.5.4\build\native\include\glm\gtx\gradient_paint.inl" />
+    <None Include="cubefield\packages\glmathematics.0.9.5.4\build\native\include\glm\gtx\handed_coordinate_space.inl" />
+    <None Include="cubefield\packages\glmathematics.0.9.5.4\build\native\include\glm\gtx\hash.inl" />
+    <None Include="cubefield\packages\glmathematics.0.9.5.4\build\native\include\glm\gtx\integer.inl" />
+    <None Include="cubefield\packages\glmathematics.0.9.5.4\build\native\include\glm\gtx\intersect.inl" />
+    <None Include="cubefield\packages\glmathematics.0.9.5.4\build\native\include\glm\gtx\io.inl" />
+    <None Include="cubefield\packages\glmathematics.0.9.5.4\build\native\include\glm\gtx\log_base.inl" />
+    <None Include="cubefield\packages\glmathematics.0.9.5.4\build\native\include\glm\gtx\matrix_cross_product.inl" />
+    <None Include="cubefield\packages\glmathematics.0.9.5.4\build\native\include\glm\gtx\matrix_decompose.inl" />
+    <None Include="cubefield\packages\glmathematics.0.9.5.4\build\native\include\glm\gtx\matrix_interpolation.inl" />
+    <None Include="cubefield\packages\glmathematics.0.9.5.4\build\native\include\glm\gtx\matrix_major_storage.inl" />
+    <None Include="cubefield\packages\glmathematics.0.9.5.4\build\native\include\glm\gtx\matrix_operation.inl" />
+    <None Include="cubefield\packages\glmathematics.0.9.5.4\build\native\include\glm\gtx\matrix_query.inl" />
+    <None Include="cubefield\packages\glmathematics.0.9.5.4\build\native\include\glm\gtx\matrix_transform_2d.inl" />
+    <None Include="cubefield\packages\glmathematics.0.9.5.4\build\native\include\glm\gtx\mixed_product.inl" />
+    <None Include="cubefield\packages\glmathematics.0.9.5.4\build\native\include\glm\gtx\norm.inl" />
+    <None Include="cubefield\packages\glmathematics.0.9.5.4\build\native\include\glm\gtx\normal.inl" />
+    <None Include="cubefield\packages\glmathematics.0.9.5.4\build\native\include\glm\gtx\normalize_dot.inl" />
+    <None Include="cubefield\packages\glmathematics.0.9.5.4\build\native\include\glm\gtx\number_precision.inl" />
+    <None Include="cubefield\packages\glmathematics.0.9.5.4\build\native\include\glm\gtx\optimum_pow.inl" />
+    <None Include="cubefield\packages\glmathematics.0.9.5.4\build\native\include\glm\gtx\orthonormalize.inl" />
+    <None Include="cubefield\packages\glmathematics.0.9.5.4\build\native\include\glm\gtx\perpendicular.inl" />
+    <None Include="cubefield\packages\glmathematics.0.9.5.4\build\native\include\glm\gtx\polar_coordinates.inl" />
+    <None Include="cubefield\packages\glmathematics.0.9.5.4\build\native\include\glm\gtx\projection.inl" />
+    <None Include="cubefield\packages\glmathematics.0.9.5.4\build\native\include\glm\gtx\quaternion.inl" />
+    <None Include="cubefield\packages\glmathematics.0.9.5.4\build\native\include\glm\gtx\raw_data.inl" />
+    <None Include="cubefield\packages\glmathematics.0.9.5.4\build\native\include\glm\gtx\rotate_normalized_axis.inl" />
+    <None Include="cubefield\packages\glmathematics.0.9.5.4\build\native\include\glm\gtx\rotate_vector.inl" />
+    <None Include="cubefield\packages\glmathematics.0.9.5.4\build\native\include\glm\gtx\scalar_relational.inl" />
+    <None Include="cubefield\packages\glmathematics.0.9.5.4\build\native\include\glm\gtx\simd_mat4.inl" />
+    <None Include="cubefield\packages\glmathematics.0.9.5.4\build\native\include\glm\gtx\simd_quat.inl" />
+    <None Include="cubefield\packages\glmathematics.0.9.5.4\build\native\include\glm\gtx\simd_vec4.inl" />
+    <None Include="cubefield\packages\glmathematics.0.9.5.4\build\native\include\glm\gtx\spline.inl" />
+    <None Include="cubefield\packages\glmathematics.0.9.5.4\build\native\include\glm\gtx\std_based_type.inl" />
+    <None Include="cubefield\packages\glmathematics.0.9.5.4\build\native\include\glm\gtx\string_cast.inl" />
+    <None Include="cubefield\packages\glmathematics.0.9.5.4\build\native\include\glm\gtx\transform.inl" />
+    <None Include="cubefield\packages\glmathematics.0.9.5.4\build\native\include\glm\gtx\transform2.inl" />
+    <None Include="cubefield\packages\glmathematics.0.9.5.4\build\native\include\glm\gtx\type_aligned.inl" />
+    <None Include="cubefield\packages\glmathematics.0.9.5.4\build\native\include\glm\gtx\type_trait.inl" />
+    <None Include="cubefield\packages\glmathematics.0.9.5.4\build\native\include\glm\gtx\vector_angle.inl" />
+    <None Include="cubefield\packages\glmathematics.0.9.5.4\build\native\include\glm\gtx\vector_query.inl" />
+    <None Include="cubefield\packages\glmathematics.0.9.5.4\build\native\include\glm\gtx\wrap.inl" />
+  </ItemGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
+  <ImportGroup Label="ExtensionTargets">
+  </ImportGroup>
+</Project>

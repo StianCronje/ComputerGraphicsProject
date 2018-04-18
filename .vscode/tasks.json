@@ -1,0 +1,21 @@
+{
+    // See https://go.microsoft.com/fwlink/?LinkId=733558
+    // for the documentation about the tasks.json format
+    "version": "2.0.0",
+    "tasks": [
+        {
+            "label": "build",
+            "type": "shell",
+            "group": {
+                "kind": "build",
+                "isDefault": true
+            },
+            "problemMatcher":"$gcc",
+            
+            "osx": {
+                "command": "g++ -std=c++11 ${workspaceFolder}/CubeField/CubeField/common/*.cpp ${workspaceFolder}/CubeField/CubeField/*.cpp -o ${workspaceFolder}/CubeField/CubeField/cf_mac -lGLFW -lGLEW -lSOIL -framework OpenGL -framework GLUT -framework CoreFoundation"
+                // "command": "g++ test.cpp -o ${workspaceFolder}/Builds/Mac_Build/cf -I ${workspaceFolder} -lGLFW -lGLEW -framework OpenGL -framework GLUT"
+            }
+        }
+    ]
+}
