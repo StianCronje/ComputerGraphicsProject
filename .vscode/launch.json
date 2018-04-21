@@ -8,7 +8,7 @@
             "program": "${workspaceRoot}/Builds/Mac_Build/cf",
             "preLaunchTask": "build",
             "stopAtEntry": false,
-            "cwd": "${workspaceRoot}",
+            "cwd": "${workspaceRoot}/CubeField/CubeField/",
             "environment": [],
             "externalConsole": true,
             "MIMode": "gdb",
