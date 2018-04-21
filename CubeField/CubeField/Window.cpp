@@ -88,12 +88,14 @@ bool Window::init()
 		std::cout << "Failed to initialize GLEW" << std::endl;
 		return false;
 	}
-	//glfwSetInputMode(_window, GLFW_STICKY_KEYS, GL_TRUE);
-	//glfwSetInputMode(_window, GLFW_CURSOR, GLFW_CURSOR_DISABLED);
-	//glfwSetCursorPos(_window, _width / 2, _height / 2);
+	glfwSetInputMode(_window, GLFW_STICKY_KEYS, GL_TRUE);
+	glfwSetInputMode(_window, GLFW_CURSOR, GLFW_CURSOR_DISABLED);
+	glfwSetCursorPos(_window, _width / 2, _height / 2);
 	glEnable(GL_DEPTH_TEST);
 	glDepthFunc(GL_LESS);
 	glEnable(GL_CULL_FACE);
+
+	_begin = clock();
 
 	return true;
 }
@@ -106,6 +108,7 @@ void Window::clear() const
 void Window::update()
 {
 	glfwPollEvents();
+	_end = clock();
 	//glfwGetFramebufferSize(_window, &_width, &_height);
 	glfwSwapBuffers(_window);
 }

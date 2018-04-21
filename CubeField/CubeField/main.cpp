@@ -15,6 +15,9 @@ int main() {
 
 	Model truck(gameWindow.getWindow(), "L200-OBJ-triangles/truck.obj", "L200-OBJ-triangles/truck_color.jpg");
 	Model plane(gameWindow.getWindow(), "FREOBJ/FREOBJ2.obj", "FREOBJ/CIRRUSTS.jpg");
+	
+	clock_t begin = clock();
+
 
 	while (glfwGetKey(gameWindow.getWindow(), GLFW_KEY_ESCAPE) != GLFW_PRESS && !gameWindow.closed())
 	{
@@ -25,7 +28,7 @@ int main() {
 		truck.Draw();
 
 		plane.SetScale(glm::vec3(10.0f, 10.0f, 10.0f));
-		plane.SetRotation(glm::vec3(-90.0f, -90.0f, 0.0f));
+		plane.SetRotation(glm::vec3(-90.0f, gameWindow.getTime() * -10.0f, 0.0f));
 		plane.SetTranslation(glm::vec3(0.0f, 5.0f, 0.0f));
 		plane.Draw();
 
