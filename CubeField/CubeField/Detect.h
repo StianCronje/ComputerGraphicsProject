@@ -10,7 +10,7 @@
 class Detect
 {
 private:
-	Model * one;
+	Model* one;
 	Model* two;
 public:
 	Detect(Model* one, Model* two);
