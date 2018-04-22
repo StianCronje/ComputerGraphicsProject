@@ -1,0 +1,7 @@
+﻿  Texture.cpp
+c:\users\virgi\documents\school\computer graphics\assignment\scrolling\opengl\texture.cpp(33): warning C4996: 'fopen': This function or variable may be unsafe. Consider using fopen_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+  c:\program files (x86)\windows kits\10\include\10.0.15063.0\ucrt\stdio.h(207): note: see declaration of 'fopen'
+c:\users\virgi\documents\school\computer graphics\assignment\scrolling\opengl\texture.cpp(198): warning C4244: '=': conversion from 'GLfloat' to 'int', possible loss of data
+c:\users\virgi\documents\school\computer graphics\assignment\scrolling\opengl\texture.cpp(208): warning C4244: '=': conversion from 'int' to 'GLfloat', possible loss of data
+c:\users\virgi\documents\school\computer graphics\assignment\scrolling\opengl\texture.cpp(67): warning C4715: 'loadBMP_custom': not all control paths return a value
+  opengl.vcxproj -> C:\Users\virgi\Documents\School\Computer Graphics\Assignment\Scrolling\x64\Debug\Cube_texture.exe
