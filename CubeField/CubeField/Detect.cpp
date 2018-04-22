@@ -1,5 +1,4 @@
 #include "Detect.h"
-#include "Model.h"
 
 Detect::Detect(Model* one, Model* two)
 {
@@ -8,9 +7,14 @@ Detect::Detect(Model* one, Model* two)
 }
 bool Detect::compare()
 {
-	if (one->GetTranslation() == two->GetTranslation())
+	float y1 = one->GetTranslation().x;
+	float y2 = two->GetTranslation().x;
+	float z1 = one->GetTranslation().z;
+	float z2 = two->GetTranslation().z;
+	float resulty = abs(y1 - y2);
+	float resultz = abs(z1 - z2);
+	if (resulty<50&&resultz<50)
 		return true;
 	else
 		return false;
 }
-
