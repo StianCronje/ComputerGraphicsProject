@@ -1,10 +1,15 @@
 #include <iostream>
 #include <stdlib.h>
+#include <cstdlib>
 
 #include "Window.h"
 #include "Model.h"
 
+#include "glm\gtc\random.hpp"
+
 #include <chrono>
+
+#define SPAWN_SIZE 100
 
 
 int main() {
@@ -13,8 +18,18 @@ int main() {
 	glClearColor(0.2f, 0.3f, 0.8f, 1.0f);
 	std::cout << "OpenGL" << glGetString(GL_VERSION) << std::endl;
 
-	Model truck(gameWindow.getWindow(), "L200-OBJ-triangles/truck.obj", "L200-OBJ-triangles/truck_color.jpg");
+	Model::InitShaders();
+
 	Model plane(gameWindow.getWindow(), "FREOBJ/FREOBJ2.obj", "FREOBJ/CIRRUSTS.jpg");
+	Model playerShip(gameWindow.getWindow(), "Models/Ship_3.obj", "FREOBJ/CIRRUSTS.jpg");
+	Model obstacle(gameWindow.getWindow(), "L200-OBJ-triangles/truck.obj", "L200-OBJ-triangles/truck_color.jpg");
+
+	std::vector<glm::vec3> obstaclePos;
+	for (int i = 0; i < 10; i++)
+	{
+		//TODO: replace this with actual rand position generator
+		obstaclePos.push_back(glm::vec3((rand() % SPAWN_SIZE) - (SPAWN_SIZE / 2), 0.0f, (rand() % SPAWN_SIZE) - (SPAWN_SIZE / 2)));
+	}
 
 	while (glfwGetKey(gameWindow.getWindow(), GLFW_KEY_ESCAPE) != GLFW_PRESS && !gameWindow.closed())
 	{
@@ -27,59 +42,35 @@ int main() {
 		{
 			std::cout << "'A' is pressed" << std::endl;
 		}
-
 		// example on how to get mouse buttons
 		if(gameWindow.isMouseButtonPressed(GLFW_MOUSE_BUTTON_1))
 		{
 			std::cout << "'LMB' is pressed" << std::endl;			
 		}
-
 		// example how tp track the mouse position;
 		double x, y;
 		gameWindow.getMousePosition(x, y);
 		std::cout << "Mouse Position: (" << x << ", " << y << ")" << std::endl;
+				
+		playerShip.SetScale(glm::vec3(5.0f, 5.0f, 5.0f));
+		playerShip.Draw();
 
-		truck.Draw();
-
-		plane.SetScale(glm::vec3(10.0f, 10.0f, 10.0f));
-		plane.SetRotation(glm::vec3(-90.0f, -90.0f, 0.0f));
+		/*plane.SetScale(glm::vec3(10.0f, 10.0f, 10.0f));
+		plane.SetRotation(glm::vec3(-90.0f, gameWindow.getTime() * -10.0f, 0.0f));
 		plane.SetTranslation(glm::vec3(0.0f, 5.0f, 0.0f));
-		plane.Draw();
+		plane.Draw();*/
+
+		for (int i = 0; i < obstaclePos.size(); i++)
+		{
+			obstacle.SetScale(glm::vec3(0.2f, 0.2f, 0.2f));
+			obstacle.SetTranslation(obstaclePos[i]);
+			obstacle.Draw();
+		}
 
 		//=== End Loop ===
 
 		gameWindow.update();
 	}
-
-	// Create and load objects
-	//Model truck(gameWindow.window, "L200-OBJ-triangles/truck.obj", "L200-OBJ-triangles/truck_color.jpg");
-	//Model plane(gameWindow.window, "FREOBJ/FREOBJ2.obj", "FREOBJ/CIRRUSTS.jpg");
-
-	//clock_t begin = clock();
-	//do {
-	//	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
-
-
-	//	clock_t end = clock();
-	//	float elapsed_secs = double(end - begin) / CLOCKS_PER_SEC;
-
-	//	// Draw objects each frame
-	//	truck.Draw();
-
-	//	plane.SetScale(glm::vec3(10.0f, 10.0f, 10.0f));
-	//	plane.SetRotation(glm::vec3(-90.0f, -90.0f, 0.0f));
-	//	plane.SetTranslation(glm::vec3(0.0f, 5.0f, 0.0f));
-	//	plane.Draw();
-
-
-	//	// Swap buffers
-	//	glfwSwapBuffers(gameWindow.window);
-	//	glfwPollEvents();
-
-	//} // Check if the ESC key was pressed or the window was closed
-	//while (glfwGetKey(gameWindow.window, GLFW_KEY_ESCAPE) != GLFW_PRESS &&
-	//	glfwWindowShouldClose(gameWindow.window) == 0);
-
 	
 	//system("PAUSE");
 	return 0;
