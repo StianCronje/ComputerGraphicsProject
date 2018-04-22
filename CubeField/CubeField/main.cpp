@@ -20,7 +20,6 @@ int main() {
 
 	Model::InitShaders();
 
-	//Model truck(gameWindow.getWindow(), "L200-OBJ-triangles/truck.obj", "L200-OBJ-triangles/truck_color.jpg");
 	Model plane(gameWindow.getWindow(), "FREOBJ/FREOBJ2.obj", "FREOBJ/CIRRUSTS.jpg");
 	Model playerShip(gameWindow.getWindow(), "Models/Ship_3.obj", "FREOBJ/CIRRUSTS.jpg");
 	Model obstacle(gameWindow.getWindow(), "L200-OBJ-triangles/truck.obj", "L200-OBJ-triangles/truck_color.jpg");
@@ -43,21 +42,16 @@ int main() {
 		{
 			std::cout << "'A' is pressed" << std::endl;
 		}
-
 		// example on how to get mouse buttons
 		if(gameWindow.isMouseButtonPressed(GLFW_MOUSE_BUTTON_1))
 		{
 			std::cout << "'LMB' is pressed" << std::endl;			
 		}
-
 		// example how tp track the mouse position;
 		double x, y;
 		gameWindow.getMousePosition(x, y);
 		std::cout << "Mouse Position: (" << x << ", " << y << ")" << std::endl;
-
-		//truck.SetTranslation(glm::vec3(20, 0, 0));
-		//truck.Draw();
-		
+				
 		playerShip.SetScale(glm::vec3(5.0f, 5.0f, 5.0f));
 		playerShip.Draw();
 

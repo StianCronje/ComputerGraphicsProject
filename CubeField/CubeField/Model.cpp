@@ -129,19 +129,6 @@ void Model::SetScale(glm::vec3 scale)
 	_scale = scale;
 }
 
-glm::vec3 Model::GetTranslation()
-{
-	return _translation;
-}
-glm::vec3 Model::GetRotation()
-{
-	return _rotation;
-}
-glm::vec3 Model::GetScale()
-{
-	return _scale;
-}
-
 Model::~Model()
 {
 	glDeleteBuffers(1, &vertexbuffer);
