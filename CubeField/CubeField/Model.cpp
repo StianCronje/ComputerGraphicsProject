@@ -4,7 +4,12 @@
 #include "common/controls.hpp"
 #include "common/texloader.hpp"
 
+GLuint Model::ShaderID;
 
+void Model::InitShaders()
+{
+	Model::ShaderID = LoadShaders("TransformVertexShader.vertexshader", "TextureFragmentShader.fragmentshader");
+}
 
 Model::Model(GLFWwindow* window, const char* modelPath, const char* texturePath)
 {
@@ -13,10 +18,10 @@ Model::Model(GLFWwindow* window, const char* modelPath, const char* texturePath)
 	glBindVertexArray(VertexArrayID);
 
 	// Create and compile our GLSL program from the shaders
-	programID = LoadShaders("TransformVertexShader.vertexshader", "TextureFragmentShader.fragmentshader");
+	//Model::ShaderID = LoadShaders("TransformVertexShader.vertexshader", "TextureFragmentShader.fragmentshader");
 
 	// Get a handle for our "MVP" uniform
-	MatrixID = glGetUniformLocation(programID, "MVP");
+	MatrixID = glGetUniformLocation(Model::ShaderID, "MVP");
 
 	// Load the texture
 	//GLuint Texture = loadtextures("L200-OBJ/truck_color.jpg");
@@ -24,7 +29,7 @@ Model::Model(GLFWwindow* window, const char* modelPath, const char* texturePath)
 
 
 	// Get a handle for our "myTextureSampler" uniform
-	TextureID = glGetUniformLocation(programID, "myTextureSampler");
+	TextureID = glGetUniformLocation(Model::ShaderID, "myTextureSampler");
 
 	// Read our .obj file
 	bool res = loadOBJ(modelPath, vertices, uvs, normals);
@@ -38,10 +43,11 @@ Model::Model(GLFWwindow* window, const char* modelPath, const char* texturePath)
 	glBindBuffer(GL_ARRAY_BUFFER, uvbuffer);
 	glBufferData(GL_ARRAY_BUFFER, uvs.size() * sizeof(glm::vec2), &uvs[0], GL_STATIC_DRAW);
 }
+
 void Model::Draw()
 {
 	// Use our shader
-	glUseProgram(programID);
+	glUseProgram(Model::ShaderID);
 
 	// Compute the MVP matrix from keyboard and mouse input
 	computeMatricesFromInputs(window);
@@ -53,11 +59,11 @@ void Model::Draw()
 	glm::mat4 trans;
 
 	// TODO: Rearange these if needed
-	if (_scale != glm::vec3(1.0f, 1.0f, 1.0f)) {
-		trans = glm::scale(trans, _scale);
-	}
 	if (_translation != glm::vec3(0.0f, 0.0f, 0.0f)) {
 		trans = glm::translate(trans, _translation);
+	}
+	if (_scale != glm::vec3(1.0f, 1.0f, 1.0f)) {
+		trans = glm::scale(trans, _scale);
 	}
 	if (_rotation != glm::vec3(0.0f, 0.0f, 0.0f)) {
 		trans = glm::rotate(trans, glm::radians(_rotation.z), glm::vec3(0.0f, 0.0f, 1.0f));
@@ -65,7 +71,7 @@ void Model::Draw()
 		trans = glm::rotate(trans, glm::radians(_rotation.x), glm::vec3(1.0f, 0.0f, 0.0f));
 	}
 
-	GLint uniTrans = glGetUniformLocation(programID, "trans");
+	GLint uniTrans = glGetUniformLocation(Model::ShaderID, "trans");
 	glUniformMatrix4fv(uniTrans, 1, GL_FALSE, glm::value_ptr(trans));
 	glm::mat4 MVP = ProjectionMatrix * ViewMatrix * ModelMatrix;
 
@@ -140,7 +146,7 @@ Model::~Model()
 {
 	glDeleteBuffers(1, &vertexbuffer);
 	glDeleteBuffers(1, &uvbuffer);
-	glDeleteProgram(programID);
+	glDeleteProgram(Model::ShaderID);
 	glDeleteTextures(1, &Texture);
 	glDeleteVertexArrays(1, &VertexArrayID);
 }

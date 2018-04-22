@@ -19,7 +19,6 @@ class Model
 {
 private:
 	GLuint VertexArrayID;
-	GLuint programID;
 	GLuint MatrixID;
 	GLuint Texture;
 	GLuint TextureID;
@@ -45,5 +44,8 @@ public:
 	glm::vec3 GetTranslation();
 	glm::vec3 GetRotation();
 	glm::vec3 GetScale();
+public:
+	static void InitShaders();
+	static GLuint ShaderID;
 };
 

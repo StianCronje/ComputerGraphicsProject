@@ -124,12 +124,9 @@ void Window::clear() const
 void Window::update()
 {
 	glfwPollEvents();
-<<<<<<< HEAD
+
 	_end = clock();
 	//glfwGetFramebufferSize(_window, &_width, &_height);
-=======
-	// glfwGetFramebufferSize(_window, &_width, &_height);
->>>>>>> 480ec136e3958fc73d227fb1e719ae74695ae872
 	glfwSwapBuffers(_window);
 }
 
