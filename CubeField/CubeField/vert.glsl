@@ -31,7 +31,4 @@ void main(){
 
 	//Fragment positions  to be forwarded to the fragment shader
 	FragPos =vertexPosition_modelspace;
-
-
 }
-

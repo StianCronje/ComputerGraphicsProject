@@ -27,6 +27,7 @@ private:
 	std::vector<glm::vec3> normals;
 	GLuint vertexbuffer;
 	GLuint uvbuffer;
+	GLuint normalbuffer;
 	GLFWwindow* window;
 
 	glm::vec3 _translation = glm::vec3(0.0f, 0.0f, 0.0f);
@@ -38,6 +39,8 @@ public:
 	~Model();
 public:
 	void Draw();
+	void Update();
+	void Render();
 	void SetTranslation(glm::vec3 translation);
 	void SetRotation(glm::vec3 rotation);
 	void SetScale(glm::vec3 scale);
