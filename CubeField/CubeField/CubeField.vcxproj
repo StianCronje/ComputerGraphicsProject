@@ -127,6 +127,7 @@
     <ClCompile Include="common\objloader.cpp" />
     <ClCompile Include="common\shader.cpp" />
     <ClCompile Include="common\texloader.cpp" />
+
     <ClCompile Include="Detect.cpp" />
     <ClCompile Include="FastNoise.cpp" />
     <ClCompile Include="main.cpp" />
@@ -139,6 +140,7 @@
     <ClInclude Include="common\objloader.hpp" />
     <ClInclude Include="common\shader.hpp" />
     <ClInclude Include="common\texloader.hpp" />
+
     <ClInclude Include="Detect.h" />
     <ClInclude Include="FastNoise.h" />
     <ClInclude Include="Model.h" />

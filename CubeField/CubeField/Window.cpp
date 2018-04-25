@@ -111,6 +111,8 @@ bool Window::init()
 	glDepthFunc(GL_LESS);
 	glEnable(GL_CULL_FACE);
 
+	_begin = clock();
+
 	return true;
 }
 
@@ -122,7 +124,9 @@ void Window::clear() const
 void Window::update()
 {
 	glfwPollEvents();
-	// glfwGetFramebufferSize(_window, &_width, &_height);
+
+	_end = clock();
+	//glfwGetFramebufferSize(_window, &_width, &_height);
 	glfwSwapBuffers(_window);
 }
 
