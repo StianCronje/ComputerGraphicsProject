@@ -19,5 +19,5 @@ private:
 public:
 	Detect(Model* one, Model* two);
 public:
-	bool compare();
+	bool compare(float set);
 };
