@@ -92,5 +92,8 @@
     <ClInclude Include="ObstacleSpawner.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="PerlinGen.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>
