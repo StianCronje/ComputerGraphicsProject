@@ -30,9 +30,7 @@ int main() {
 
 	Model::InitShaders();
 
-	float pos = 0.0f; 
-	float rot = 0.0f;
-	float mov = 0.0f;
+	float a = 0.0, b = 0.0, c = 0.0;
 
 	Model playerShip(gameWindow.getWindow(), "Models/Ship_3.obj", "Models/Ship_tex.png");
 	Model astrd1(gameWindow.getWindow(), "Models/astrd_1.obj", "Models/FireAsteroid.jpg");
@@ -61,31 +59,58 @@ int main() {
 	while (glfwGetKey(gameWindow.getWindow(), GLFW_KEY_ESCAPE) != GLFW_PRESS && !gameWindow.closed())
 	{		
 		gameWindow.clear();
-		mov-=0.2f;
 		//=== Loop Here ===
 		process_lighting();		
 
 		// example on how to get a key input
-		if (gameWindow.isKeyPressed(GLFW_KEY_W))
+		c += 0.1;
+		if (gameWindow.isKeyPressed(GLFW_KEY_A))
 		{
-			pos--;
+			std::cout << "'A' is pressed" << std::endl;
+			if (b >= -47) {
+				b -= 1;
+				playerShip.SetRotation(glm::vec3(0.0f, 0.0f, 25.0f));
+			}
 		}
-		if (gameWindow.isKeyPressed(GLFW_KEY_S))
+		else if (gameWindow.isKeyPressed(GLFW_KEY_W))
 		{
-			pos++;
+			std::cout << "'W' is pressed" << std::endl;
+			if (a <= 55) {
+				a += 1;
+				playerShip.SetRotation(glm::vec3(25.0f, 0.0f, 0.0f));
+			}
+		}
+		else if (gameWindow.isKeyPressed(GLFW_KEY_S))
+		{
+			
+			std::cout << "'S' is pressed" << std::endl;
+			if (a >= -17) {
+				a -= 1;
+				playerShip.SetRotation(glm::vec3(-25.0f, 0.0f, 0.0f));
+			}
+		}
+		else if (gameWindow.isKeyPressed(GLFW_KEY_D))
+		{
+			std::cout << "'D' is pressed" << std::endl;
+			if (b <= 47) {
+				b += 1;
+				playerShip.SetRotation(glm::vec3(0.0f, 0.0f, -25.0f));
+			}
 		}
 		// example on how to get mouse buttons
-		if(gameWindow.isMouseButtonPressed(GLFW_MOUSE_BUTTON_1))
+		else if (gameWindow.isMouseButtonPressed(GLFW_MOUSE_BUTTON_1))
 		{
-			std::cout << "'LMB' is pressed" << std::endl;			
+			std::cout << "'LMB' is pressed" << std::endl;
 		}
+		else
+			playerShip.SetRotation(glm::vec3(0.0f, 0.0f, 0.0f));
 
 		// example how tp track the mouse position;
 		double x, y;
 		gameWindow.getMousePosition(x, y);
 
 		playerShip.SetScale(glm::vec3(2, 2, 2));
-		playerShip.SetTranslation(glm::vec3(0, 0, pos/5));
+		playerShip.SetTranslation(glm::vec3(b, a, -c));
 		playerShip.Draw();
 
 		obstacles.Spawn();
