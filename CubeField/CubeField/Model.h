@@ -34,6 +34,8 @@ private:
 	float _rotationDeg = 0;
 	glm::vec3 _rotation = glm::vec3(0.0f, 0.0f, 0.0f);
 	glm::vec3 _scale = glm::vec3(1.0f, 1.0f, 1.0f);
+	glm::vec3 _minBounds = glm::vec3(0,0,0);
+	glm::vec3 _maxBounds = glm::vec3(0,0,0);
 public:
 	Model(GLFWwindow* window, const char* modelPath, const char* texturePath);
 	~Model();
@@ -46,7 +48,9 @@ public:
 	void SetScale(glm::vec3 scale);
 	inline glm::vec3 GetTranslation() { return _translation; }
 	inline glm::vec3 GetRotation(){ return _rotation; }
-	inline glm::vec3 GetScale(){ return _scale; }
+	inline glm::vec3 GetScale() { return _scale; }
+	inline glm::vec3 GetMinBounds() { return _minBounds; }
+	inline glm::vec3 GetMaxBounds(){ return _maxBounds; }
 public:
 	static void InitShaders();
 	static GLuint ShaderID;

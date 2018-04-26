@@ -1,14 +1,18 @@
+#include <iostream>
+
 #include "Model.h"
 #include "common/shader.hpp"
 #include "common/objloader.hpp"
 #include "common/controls.hpp"
 #include "common/texloader.hpp"
 
+void calculate_bounds(std::vector<glm::vec3>& verts, glm::vec3& minBounds, glm::vec3& maxBounds);
+
 GLuint Model::Model::ShaderID;
 
 void Model::InitShaders()
 {
-	// Model::Model::ShaderID = LoadShaders("vert.glsl", "frag.glsl");
+	 Model::Model::ShaderID = LoadShaders("vert.glsl", "frag.glsl");
 }
 
 Model::Model(GLFWwindow* window, const char* modelPath, const char* texturePath)
@@ -19,7 +23,7 @@ Model::Model(GLFWwindow* window, const char* modelPath, const char* texturePath)
 
 	// Create and compile our GLSL program from the shaders
 	// Model::ShaderID = LoadShaders("TransformVertexShader.vertexshader", "TextureFragmentShader.fragmentshader");
-	Model::ShaderID = LoadShaders("vert.glsl", "frag.glsl");
+	//Model::ShaderID = LoadShaders("vert.glsl", "frag.glsl");
 
 	// Get a handle for our "MVP" uniform
 	MatrixID = glGetUniformLocation(Model::ShaderID, "MVP");
@@ -49,6 +53,7 @@ Model::Model(GLFWwindow* window, const char* modelPath, const char* texturePath)
 	glBindBuffer(GL_ARRAY_BUFFER, normalbuffer);
 	glBufferData(GL_ARRAY_BUFFER, normals.size() * sizeof(glm::vec3), &normals[0], GL_STATIC_DRAW);
 
+	calculate_bounds(vertices, _minBounds, _maxBounds);
 }
 
 void Model::Update()
@@ -168,4 +173,37 @@ Model::~Model()
 	glDeleteProgram(Model::ShaderID);
 	glDeleteTextures(1, &Texture);
 	glDeleteVertexArrays(1, &VertexArrayID);
+}
+
+
+void calculate_bounds(std::vector<glm::vec3>& verts, glm::vec3& minBounds, glm::vec3& maxBounds)
+{
+	float minX, maxX, minY, maxY, minZ, maxZ;
+	minX = verts[0].x;
+	maxX = verts[0].x;
+	minY = verts[0].y;
+	maxY = verts[0].y;
+	minZ = verts[0].z;
+	maxZ = verts[0].z;
+
+	for (unsigned int i = 0; i < verts.size(); i++)
+	{
+		if (verts[i].x < minX) minX = verts[i].x;
+		if (verts[i].x > maxX) maxX = verts[i].x;
+
+		if (verts[i].y < minY) minY = verts[i].y;
+		if (verts[i].y > maxY) maxY = verts[i].y;
+
+		if (verts[i].z < minZ) minZ = verts[i].z;
+		if (verts[i].z > maxZ) maxZ = verts[i].z;
+	}
+
+	minBounds.x = minX;
+	minBounds.y = minY;
+	minBounds.z = minZ;
+	maxBounds.x = maxX;
+	maxBounds.y = maxY;
+	maxBounds.z = maxZ;
+
+	std::cout << "min: (" << minX << "," << minY << "," << minZ << ") | max(" << maxX << "," << maxY << "," << maxZ << ")" << std::endl;
 }

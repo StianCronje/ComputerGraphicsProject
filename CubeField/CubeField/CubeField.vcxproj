@@ -127,11 +127,11 @@
     <ClCompile Include="common\objloader.cpp" />
     <ClCompile Include="common\shader.cpp" />
     <ClCompile Include="common\texloader.cpp" />
-
     <ClCompile Include="Detect.cpp" />
     <ClCompile Include="FastNoise.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="Model.cpp" />
+    <ClCompile Include="ObstacleSpawner.cpp" />
     <ClCompile Include="PerlinGen.cpp" />
     <ClCompile Include="Window.cpp" />
   </ItemGroup>
@@ -140,10 +140,11 @@
     <ClInclude Include="common\objloader.hpp" />
     <ClInclude Include="common\shader.hpp" />
     <ClInclude Include="common\texloader.hpp" />
-
     <ClInclude Include="Detect.h" />
     <ClInclude Include="FastNoise.h" />
     <ClInclude Include="Model.h" />
+    <ClInclude Include="ObstacleSpawner.h" />
+    <ClInclude Include="PerlinGen.h" />
     <ClInclude Include="Window.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
