@@ -11,8 +11,8 @@ bool Detect::compare(float set)
 	float x2 = two->GetTranslation().x;
 	float z1 = one->GetTranslation().z;
 	float z2 = two->GetTranslation().z;
-	float y1 = one->GetTranslation().z;
-	float y2 = two->GetTranslation().z;
+	float y1 = one->GetTranslation().y;
+	float y2 = two->GetTranslation().y;
 	float resulty = abs(y1 - y2);
 	float resultz = abs(z1 - z2);
 	float resultx = abs(x1 - x2);

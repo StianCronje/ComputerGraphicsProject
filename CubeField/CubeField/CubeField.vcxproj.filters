@@ -51,7 +51,6 @@
     <ClCompile Include="Model.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-
     <ClCompile Include="Detect.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
@@ -61,7 +60,9 @@
     <ClCompile Include="PerlinGen.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-
+    <ClCompile Include="ObstacleSpawner.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Window.h">
@@ -82,11 +83,13 @@
     <ClInclude Include="Model.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-
     <ClInclude Include="Detect.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="FastNoise.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="ObstacleSpawner.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
