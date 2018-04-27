@@ -8,6 +8,10 @@ ObstacleSpawner::ObstacleSpawner(std::vector<Model*> &obstacleModels)
 
 void ObstacleSpawner::Generate(int size, int x_scale, int y_scale, int z_scale)
 {
+	_obstaclePos.clear();
+	_obstacleRot.clear();
+	_modelAtPos.clear();
+
 	generator.perlinSetValues(rand(), 1);
 	generator.setMatrixSize(size);
 	generator.popVertexArray();
@@ -30,7 +34,7 @@ void ObstacleSpawner::Spawn()
 {
 	for (unsigned int i = 0; i < _obstaclePos.size(); i++)
 	{
-		int m = i % (_obstacleModels.size() - 1);
+		int m = i % _obstacleModels.size();
 		_modelAtPos.push_back(m);
 		(*_obstacleModels[m]).SetTranslation(_obstaclePos[i]);
 		(*_obstacleModels[m]).SetRotation(_obstacleRot[i]);
