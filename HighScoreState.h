@@ -11,7 +11,7 @@
 // scores (player name+score). When a new high 
 // score is available after a game, it lets the 
 // player enters his name.
-class CHighScoreState : public CGameState
+class CHighScoreState
 {
 public:
 	~CHighScoreState();
