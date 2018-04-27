@@ -6,23 +6,22 @@ ObstacleSpawner::ObstacleSpawner(std::vector<Model*> &obstacleModels)
 	_obstacleModels = obstacleModels;
 }
 
-void ObstacleSpawner::Generate(int size, int x_scale, int y_scale, int z_scale)
+void ObstacleSpawner::Generate(int size_x, int size_y, int x_scale, int y_scale, int z_scale)
 {
 	_obstaclePos.clear();
 	_obstacleRot.clear();
 	_modelAtPos.clear();
 
 	generator.perlinSetValues(rand(), 1);
-	generator.setMatrixSize(size);
+	generator.setMatrixSize(size_x, size_y);
 	generator.popVertexArray();
 	spawnMatrix = generator.getVertexArray();
 
-	for (int y = 0; y < size; y++)
+	for (int y = 0; y < size_y; y++)
 	{
-		for (int x = 0; x < size; x++)
+		for (int x = 0; x < size_x; x++)
 		{
 			_obstaclePos.push_back(glm::vec3((x + _offset.x) * x_scale, (spawnMatrix[x][y] + _offset.y) * y_scale, (y + _offset.z) * z_scale));
-			//_obstaclePos.push_back(glm::vec3(x * x_scale, spawnMatrix[x][y] * y_scale, y * z_scale) + _offset);
 			_obstacleRot.push_back(glm::vec3(rand() % 360, rand() % 360, rand() % 360));
 		}
 	}
