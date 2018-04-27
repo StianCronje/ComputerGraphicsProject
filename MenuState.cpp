@@ -48,6 +48,26 @@ void CMenuState::OnKeyDown(WPARAM wKey)
 	}
 }
 
+void CMenuState::Draw()
+{
+	m_pBackgroundImg->BlitImage();
+	m_pTitleImg->BlitImage();
+	// Draw the menu item backgrounds
+	for (int i=0;i<4;i++)
+	{
+		if (i==m_iCurrentSelection)
+			m_pItemBckgndSelected->BlitImage(209,150+i*100);
+		else
+			m_pItemBckgndNormal->BlitImage(209,150+i*100);
+	}
+	
+	m_pNewGameText->Draw();
+	m_pResumeGameText->Draw();
+	m_pScoresText->Draw();
+	m_pExitText->Draw();
+
+}
+
 // This checks whether there is a current game active
 void CMenuState::EnterState()
 {
@@ -59,6 +79,20 @@ void CMenuState::EnterState()
 		m_pResumeGameText->SetTextColor(1.0,1.0,1.0);
 }
 
+void CMenuState::SelectionUp()
+{
+	m_iCurrentSelection--;
+	if (m_iCurrentSelection==-1)
+		m_iCurrentSelection = 3;
+
+	// If there is no current game, we should skip
+	// the "Resume game" item.
+	if (m_iCurrentSelection==1) 
+	{
+		if (!m_pCurrentGame || m_pCurrentGame->IsGameOver())
+			m_iCurrentSelection--;
+	}
+}
 
 void CMenuState::SelectionDown()
 {
