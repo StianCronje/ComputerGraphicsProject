@@ -33,7 +33,7 @@ public:
 	bool closed() const;
 
 	inline GLFWwindow* getWindow() const { return _window; }
-	inline float getTime() const { return double(_end - _begin) / CLOCKS_PER_SEC; }
+	inline double getTime() const { return double(_end - _begin) / CLOCKS_PER_SEC; }
 
 	bool isKeyPressed(unsigned int keycode);
 	bool isMouseButtonPressed(unsigned int button);

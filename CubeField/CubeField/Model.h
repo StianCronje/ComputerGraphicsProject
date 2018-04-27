@@ -41,8 +41,6 @@ public:
 	~Model();
 public:
 	void Draw();
-	void Update();
-	void Render();
 	void SetTranslation(glm::vec3 translation);
 	void SetRotation(glm::vec3 rotation);
 	void SetScale(glm::vec3 scale);

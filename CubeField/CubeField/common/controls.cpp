@@ -26,6 +26,18 @@ glm::vec3 getCameraPosition() {
 void setCameraPosition(glm::vec3 pos) {
 	position = pos;
 }
+
+glm::vec3 lookat(0, 0, -10);
+glm::vec3 getCameraLookat()
+{
+	return lookat;
+}
+void setCameraLookat(glm::vec3 dir)
+{
+	lookat = dir;
+}
+
+
 // Initial horizontal angle : toward -Z
 float horizontalAngle = 3.14f;
 // Initial vertical angle : none
@@ -44,6 +56,7 @@ float getCameraSpeed()
 }
 
 
+
 void computeMatricesFromInputs(GLFWwindow* window) {
 
 	// glfwGetTime is called only once, the first time this function is called
@@ -53,14 +66,14 @@ void computeMatricesFromInputs(GLFWwindow* window) {
 	double currentTime = glfwGetTime();
 	float deltaTime = float(currentTime - lastTime);
 
-	glfwSetCursorPos(window, 1024 / 2, 768 / 2);
-
 	// Direction : Spherical coordinates to Cartesian coordinates conversion
 	glm::vec3 direction(
 		cos(verticalAngle) * sin(horizontalAngle),
 		sin(verticalAngle),
 		cos(verticalAngle) * cos(horizontalAngle)
 	);
+
+	
 
 	// Right vector
 	glm::vec3 right = glm::vec3(
@@ -82,7 +95,7 @@ void computeMatricesFromInputs(GLFWwindow* window) {
 
 	ViewMatrix = glm::lookAt(
 		position,		      // Camera is here
-		position + direction, // and looks here : at the same position, plus "direction"
+		lookat,  //position + direction, // and looks here : at the same position, plus "direction"
 		up	                // Head is up (set to 0,-1,0 to look upside-down)
 	);
 

@@ -28,6 +28,8 @@
     <None Include="TransformVertexShader.vertexshader">
       <Filter>Shaders</Filter>
     </None>
+    <None Include="vert.glsl" />
+    <None Include="frag.glsl" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
