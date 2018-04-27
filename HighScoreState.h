@@ -1,7 +1,6 @@
 #ifndef _HIGHSCORESTATE_H_
 #define _HIGHSCORESTATE_H_
 
-#include "GameState.h"
 #include "GameFont.h"
 #include "Image.h"
 #include <string>
