@@ -38,7 +38,7 @@ int z_size = 100;
 
 int main() {
 
-	Window gameWindow("Cube Field", 1024, 768);
+	Window gameWindow("Astroid Field", 1024, 768);
 	glClearColor(0.01f, 0.0f, 0.03f, 1.0f);
 	std::cout << "OpenGL" << glGetString(GL_VERSION) << std::endl;
 
@@ -48,7 +48,6 @@ int main() {
 	//shipTurnSpeed = startShipTurnSpeed;
 	//shipMoveSpeed = startShipMoveSpeed;
 	//shipTurnAngle = startShipTurnAngle;
-
 	
 
 	Model playerShip(gameWindow.getWindow(), "Models/Ship_3.obj", "Models/Ship_tex.png");

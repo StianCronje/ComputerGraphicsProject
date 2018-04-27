@@ -53,8 +53,6 @@ void computeMatricesFromInputs(GLFWwindow* window) {
 	double currentTime = glfwGetTime();
 	float deltaTime = float(currentTime - lastTime);
 
-	glfwSetCursorPos(window, 1024 / 2, 768 / 2);
-
 	// Direction : Spherical coordinates to Cartesian coordinates conversion
 	glm::vec3 direction(
 		cos(verticalAngle) * sin(horizontalAngle),

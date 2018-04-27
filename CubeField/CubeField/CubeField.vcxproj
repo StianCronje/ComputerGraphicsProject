@@ -119,9 +119,11 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <None Include="frag.glsl" />
     <None Include="packages.config" />
     <None Include="TextureFragmentShader.fragmentshader" />
     <None Include="TransformVertexShader.vertexshader" />
+    <None Include="vert.glsl" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="common\controls.cpp" />
