@@ -45,10 +45,7 @@ int main() {
 	Model::InitShaders();
 
 	setCameraSpeed(0);
-	//shipTurnSpeed = startShipTurnSpeed;
-	//shipMoveSpeed = startShipMoveSpeed;
-	//shipTurnAngle = startShipTurnAngle;
-	
+
 
 	Model playerShip(gameWindow.getWindow(), "Models/Ship_3.obj", "Models/Ship_tex.png");
 	Model astrd1(gameWindow.getWindow(), "Models/astrd_1.obj", "Models/FireAsteroid.jpg");
@@ -65,7 +62,6 @@ int main() {
 	z_size /= spawn_size;
 
 	ObstacleSpawner obstacles(astroids);
-	//TODO: figure out proper offset
 	//obstacles.SetOffset(glm::vec3(-x_size/4, 0, -z_size));
 	//obstacles.Generate(spawn_size, x_size, y_size, z_size);
 
@@ -74,17 +70,17 @@ int main() {
 	setCameraPosition(glm::vec3(0, y_size / 2, 40));
 
 	while (glfwGetKey(gameWindow.getWindow(), GLFW_KEY_ESCAPE) != GLFW_PRESS && !gameWindow.closed())
-	{		
+	{
 		gameWindow.clear();
 		//=== Loop Here ===
-		process_lighting();		
+		process_lighting();
 
 		// example on how to get a key input
 		playerShip.SetRotation(glm::vec3(0.0f, 0.0f, 0.0f));
 
 		c += shipMoveSpeed;
 
-		if(gameWindow.isKeyPressed(GLFW_KEY_R))
+		if (gameWindow.isKeyPressed(GLFW_KEY_R))
 			reset(&playerShip, &obstacles);
 
 		if (gameWindow.isKeyPressed(GLFW_KEY_A))
@@ -105,7 +101,7 @@ int main() {
 		}
 		if (gameWindow.isKeyPressed(GLFW_KEY_W))
 		{
-			
+
 			std::cout << "'W' is pressed" << std::endl;
 			if (a >= -17) {
 				a -= shipTurnSpeed;
@@ -122,19 +118,14 @@ int main() {
 		}
 
 		// example on how to get mouse buttons
-		 if (gameWindow.isMouseButtonPressed(GLFW_MOUSE_BUTTON_1))
+		if (gameWindow.isMouseButtonPressed(GLFW_MOUSE_BUTTON_1))
 		{
 			std::cout << "camspeed: " << getCameraSpeed() << std::endl;
 		}
-			
-
-		// example how tp track the mouse position;
-		double x, y;
-		gameWindow.getMousePosition(x, y);
 
 		playerShip.SetScale(glm::vec3(2, 2, 2));
 		playerShip.SetTranslation(glm::vec3(b, a, -c));
-		setCameraPosition(glm::vec3(getCameraPosition().x, getCameraPosition().y,  playerShip.GetTranslation().z + cameraOffset.z));
+		setCameraPosition(glm::vec3(getCameraPosition().x, getCameraPosition().y, playerShip.GetTranslation().z + cameraOffset.z));
 		diffusePosition2 = getCameraPosition();
 		playerShip.Draw();
 
@@ -146,54 +137,49 @@ int main() {
 			shipTurnSpeed = 0;
 			shipTurnAngle = 0;
 		}
-				
+
 
 		//=== End Loop ===
 
 		gameWindow.update();
 	}
-	
+
 	//system("PAUSE");
 	return 0;
 }
 
 void process_lighting()
 {
-	
+
 	// Set the ambient light color
-		GLint Ambient_Light_color = glGetUniformLocation(Model::ShaderID, "ambientColor");
-		glUniform3fv(Ambient_Light_color, 1, glm::value_ptr(ambientColor));
-		GLint Ambient_Light_strength = glGetUniformLocation(Model::ShaderID, "ambientStrength");
-		glUniform1f(Ambient_Light_strength, 0.2);
+	GLint Ambient_Light_color = glGetUniformLocation(Model::ShaderID, "ambientColor");
+	glUniform3fv(Ambient_Light_color, 1, glm::value_ptr(ambientColor));
+	GLint Ambient_Light_strength = glGetUniformLocation(Model::ShaderID, "ambientStrength");
+	glUniform1f(Ambient_Light_strength, 0.2);
 
-		//Diffuse Staff
-		// Set the Diffuse light Position
-		GLint Diffuse_Light_position = glGetUniformLocation(Model::ShaderID, "lightPos");
-		glUniform3fv(Diffuse_Light_position, 1, glm::value_ptr(diffusePosition));
-		 GLint Diffuse_Light_position1 = glGetUniformLocation(Model::ShaderID, "lightPos1");
-		 glUniform3fv(Diffuse_Light_position1, 1, glm::value_ptr(diffusePosition2));
-		// GLint Diffuse_Light_position2 = glGetUniformLocation(Model::ShaderID, "lightPos2");
-		// glUniform3fv(Diffuse_Light_position2, 1, glm::value_ptr(glm::vec3(-40.0, 0.0, 0.0)));
-		// Set the Diffuse light Position
-		GLint Diffuse_Light_color = glGetUniformLocation(Model::ShaderID, "lightColor");
-		glUniform3fv(Diffuse_Light_color, 1, glm::value_ptr(diffuseColor));
-		 GLint Diffuse_Light_color1 = glGetUniformLocation(Model::ShaderID, "lightColor1");
-		 glUniform3fv(Diffuse_Light_color1, 1, glm::value_ptr(diffuseColor2));
-		// GLint Diffuse_Light_color2 = glGetUniformLocation(Model::ShaderID, "lightColor2");
-		// glUniform3fv(Diffuse_Light_color2, 1, glm::value_ptr(glm::vec3(0.0, 0.0, 1.0)));
+	//Diffuse Staff
+	// Set the Diffuse light Position
+	GLint Diffuse_Light_position = glGetUniformLocation(Model::ShaderID, "lightPos");
+	glUniform3fv(Diffuse_Light_position, 1, glm::value_ptr(diffusePosition));
+	GLint Diffuse_Light_position1 = glGetUniformLocation(Model::ShaderID, "lightPos1");
+	glUniform3fv(Diffuse_Light_position1, 1, glm::value_ptr(diffusePosition2));
+	// Set the Diffuse light Position
+	GLint Diffuse_Light_color = glGetUniformLocation(Model::ShaderID, "lightColor");
+	glUniform3fv(Diffuse_Light_color, 1, glm::value_ptr(diffuseColor));
+	GLint Diffuse_Light_color1 = glGetUniformLocation(Model::ShaderID, "lightColor1");
+	glUniform3fv(Diffuse_Light_color1, 1, glm::value_ptr(diffuseColor2));
 
-
-		//Specular Staff
-		//Set the Cameraposition (eye location)
-		GLint eye_location = glGetUniformLocation(Model::ShaderID, "vertexPosition_cameraspace");
-		glm::vec3 CameraPosition = getCameraPosition();
-		glUniform3fv(eye_location, 1, glm::value_ptr(CameraPosition));
-		//Set the specular color
-		GLint Spec_Light_color = glGetUniformLocation(Model::ShaderID, "specColor");
-		glUniform3fv(Spec_Light_color, 1, glm::value_ptr(diffuseColor));
-		// Set the Specular light Position
-		GLint Spec_Light_position = glGetUniformLocation(Model::ShaderID, "speclightPos");
-		glUniform3fv(Spec_Light_position, 1, glm::value_ptr(diffusePosition));
+	//Specular Staff
+	//Set the Cameraposition (eye location)
+	GLint eye_location = glGetUniformLocation(Model::ShaderID, "vertexPosition_cameraspace");
+	glm::vec3 CameraPosition = getCameraPosition();
+	glUniform3fv(eye_location, 1, glm::value_ptr(CameraPosition));
+	//Set the specular color
+	GLint Spec_Light_color = glGetUniformLocation(Model::ShaderID, "specColor");
+	glUniform3fv(Spec_Light_color, 1, glm::value_ptr(diffuseColor));
+	// Set the Specular light Position
+	GLint Spec_Light_position = glGetUniformLocation(Model::ShaderID, "speclightPos");
+	glUniform3fv(Spec_Light_position, 1, glm::value_ptr(diffusePosition));
 }
 
 void reset(Model* player, ObstacleSpawner* spawner)
@@ -206,6 +192,7 @@ void reset(Model* player, ObstacleSpawner* spawner)
 	shipTurnAngle = startShipTurnAngle;
 
 	// reset obstacle pos
+	//TODO: figure out proper offset
 	spawner->SetOffset(glm::vec3(-x_size / 4, 0, -z_size));
 	spawner->Generate(spawn_size, x_size, y_size, z_size);
 

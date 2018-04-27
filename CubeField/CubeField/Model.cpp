@@ -56,7 +56,7 @@ Model::Model(GLFWwindow* window, const char* modelPath, const char* texturePath)
 	calculate_bounds(vertices, _minBounds, _maxBounds);
 }
 
-void Model::Update()
+void Model::Draw()
 {
 	// Use our shader
 	glUseProgram(Model::ShaderID);
@@ -90,11 +90,7 @@ void Model::Update()
 	// Send our transformation to the currently bound shader, 
 	// in the "MVP" uniform
 	glUniformMatrix4fv(MatrixID, 1, GL_FALSE, &MVP[0][0]);
-}
 
-
-void Model::Render()
-{
 	// Bind our texture in Texture Unit 0
 	glActiveTexture(GL_TEXTURE0);
 	glBindTexture(GL_TEXTURE_2D, Texture);
@@ -127,16 +123,16 @@ void Model::Render()
 	);
 
 	// 3rd attribute buffer : normals
-		glEnableVertexAttribArray(2);
-		glBindBuffer(GL_ARRAY_BUFFER, normalbuffer);
-		glVertexAttribPointer(
-			2,                                // attribute
-			3,                                // size
-			GL_FLOAT,                         // type
-			GL_FALSE,                         // normalized?
-			0,                                // stride
-			(void*)0                          // array buffer offset
-		);
+	glEnableVertexAttribArray(2);
+	glBindBuffer(GL_ARRAY_BUFFER, normalbuffer);
+	glVertexAttribPointer(
+		2,                                // attribute
+		3,                                // size
+		GL_FLOAT,                         // type
+		GL_FALSE,                         // normalized?
+		0,                                // stride
+		(void*)0                          // array buffer offset
+	);
 
 	// Draw the Model !
 	glDrawArrays(GL_TRIANGLES, 0, vertices.size());
@@ -144,12 +140,6 @@ void Model::Render()
 	glDisableVertexAttribArray(0);
 	glDisableVertexAttribArray(1);
 	glDisableVertexAttribArray(2);
-}
-
-void Model::Draw()
-{
-	Update();
-	Render();
 }
 
 void Model::SetTranslation(glm::vec3 translation)
