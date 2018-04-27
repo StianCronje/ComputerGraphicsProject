@@ -7,7 +7,7 @@ class PerlinGen {
 	int octaves;
 public:
 
-	void setMatrixSize(int);
+	void setMatrixSize(int, int);
 	void perlinSetValues(int, int);
 	void popVertexArray();
 	float** getVertexArray();

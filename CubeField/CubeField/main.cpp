@@ -32,7 +32,8 @@ float shipTurnSpeed;
 float shipMoveSpeed;
 float shipTurnAngle;
 
-int spawn_size = 10;
+int spawn_count_x = 10;
+int spawn_count_y = 10;
 int x_size = 200;
 int y_size = 50;
 int z_size = 100;
@@ -66,20 +67,16 @@ int main() {
 	astroids.push_back(&astrd3);
 	astroids.push_back(&astrd4);
 
-	x_size /= spawn_size;
-	y_size /= spawn_size;
-	z_size /= spawn_size;
+	x_size /= spawn_count_x;
+	y_size /= spawn_count_x;
+	z_size /= spawn_count_y;
 
-	//ObstacleSpawner obstacles(astroids);
-	//ObstacleSpawner obstacles2(astroids);
 	std::vector<ObstacleSpawner> obstaclesArray{
 		ObstacleSpawner(astroids),
 		ObstacleSpawner(astroids),
 		ObstacleSpawner(astroids)
 	};
 	currentBlockIndex = blocksPassed % obstaclesArray.size();
-	//obstacles.SetOffset(glm::vec3(-x_size/4, 0, -z_size));
-	//obstacles.Generate(spawn_size, x_size, y_size, z_size);
 
 	reset(&playerShip, obstaclesArray);
 
@@ -167,12 +164,12 @@ int main() {
 		}
 
 		// if the camera is at the end of the block
-		if (getCameraPosition().z <= obstaclesArray[currentBlockIndex].GetOffset().z * spawn_size)
+		if (getCameraPosition().z <= obstaclesArray[currentBlockIndex].GetOffset().z * spawn_count_y)
 		{
 			glm::vec3 temp = obstaclesArray[currentBlockIndex].GetOffset();
 			temp.z -= obstaclesArray.size() * z_size;
 			obstaclesArray[currentBlockIndex].SetOffset(temp);
-			obstaclesArray[currentBlockIndex].Generate(spawn_size, x_size, y_size, z_size);
+			obstaclesArray[currentBlockIndex].Generate(spawn_count_x, spawn_count_y, x_size, y_size, z_size);
 
 			blocksPassed++;
 			currentBlockIndex = blocksPassed % obstaclesArray.size();
@@ -238,7 +235,7 @@ void reset(Model* player, std::vector<ObstacleSpawner>& spawner)
 	{
 
 		spawner[i].SetOffset(glm::vec3(-x_size / 4, 0, -z_size * (i + 1)));
-		spawner[i].Generate(spawn_size, x_size, y_size, z_size);
+		spawner[i].Generate(spawn_count_x, spawn_count_y, x_size, y_size, z_size);
 		std::cout << "Spawn Block at Z: " << spawner[i].GetOffset().z << std::endl;
 	}
 

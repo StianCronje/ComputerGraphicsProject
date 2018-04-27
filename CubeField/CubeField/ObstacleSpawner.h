@@ -21,7 +21,7 @@ public:
 	ObstacleSpawner(std::vector<Model*> &obstacleModels);
 	~ObstacleSpawner();
 
-	void Generate(int size, int x_space, int y_space, int z_space);
+	void Generate(int size_x, int size_y, int x_scale, int y_scale, int z_scale);
 	void Spawn();
 	bool CheckColission(Model* player, float dist);
 	inline void SetOffset(glm::vec3 offset) { _offset = offset; }
