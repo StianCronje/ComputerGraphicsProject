@@ -25,5 +25,6 @@ public:
 	void Spawn();
 	bool CheckColission(Model* player, float dist);
 	inline void SetOffset(glm::vec3 offset) { _offset = offset; }
+	inline glm::vec3 GetOffset() { return _offset; }
 };
 
