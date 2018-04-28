@@ -10,9 +10,14 @@
 
 #include <chrono>
 
-//void process_lighting();
+#pragma region functions
+
 void reset(Model* player, std::vector<ObstacleSpawner>& spawner);
 void crash(Model* player);
+
+#pragma endregion
+
+#pragma region LightingVars
 
 glm::vec3 ambientColor = glm::vec3(0.2, 0.2, 0.1);
 glm::vec3 diffusePosition = glm::vec3(20.0, 50.0, 0.0);
@@ -27,6 +32,10 @@ glm::vec3 crashPos = glm::vec3(0, 0, 0);
 glm::vec3 startExplosionLightPos = glm::vec3(0, 0, 0);
 glm::vec3 offExplosionLightColor = glm::vec3(0, 0, 0);
 glm::vec3 onExplosionLightColor = glm::vec3(1.0, 0.6, 0.0);
+
+#pragma endregion
+
+#pragma region Variables
 
 std::vector<Model*> astroids;
 
@@ -56,12 +65,20 @@ double deltaTime = 1.0;
 
 glm::vec3 tempVec3(0, 0, 0);
 
+#pragma endregion
+
+
 int main() {
 
+#pragma region Setup Window
+	
 	Window gameWindow("Astroid Field", 1024, 768);
 	glClearColor(0.01f, 0.0f, 0.03f, 1.0f);
 	std::cout << "OpenGL" << glGetString(GL_VERSION) << std::endl;
 
+#pragma endregion
+
+#pragma region Setup Lighting
 
 	Model::ambientColor = ambientColor;
 	Model::diffusePosition = diffusePosition;
@@ -71,18 +88,19 @@ int main() {
 	Model::explosionLightPos = explosionLightPos;
 	Model::explosionLightColor = explosionLightColor;
 
-	setCameraSpeed(0);
+#pragma endregion
 
+#pragma region Load Models
 
 	Model playerShip(gameWindow.getWindow(), "Models/Ship_3.obj", "Models/Ship_tex.png");
 	Model astrd1(gameWindow.getWindow(), "Models/astrd_1.obj", "Models/FireAsteroid.jpg");
 	Model astrd2(gameWindow.getWindow(), "Models/astrd_2.obj", "Models/Asteroid5.png");
 	Model astrd3(gameWindow.getWindow(), "Models/astrd_3.obj", "Models/BlueAsteroid.jpg");
 	Model astrd4(gameWindow.getWindow(), "Models/astrd_4.obj", "Models/Asteroid8.jpg");
-	astroids.push_back(&astrd1);
-	astroids.push_back(&astrd2);
-	astroids.push_back(&astrd3);
-	astroids.push_back(&astrd4);
+
+#pragma endregion
+
+#pragma region Populate Astroid Pool
 
 	x_size /= spawn_count_x;
 	y_size /= spawn_count_x;
@@ -95,11 +113,25 @@ int main() {
 	};
 	currentBlockIndex = blocksPassed % obstaclesArray.size();
 
+	astroids.push_back(&astrd1);
+	astroids.push_back(&astrd2);
+	astroids.push_back(&astrd3);
+	astroids.push_back(&astrd4);
+
+#pragma endregion
+
 	reset(&playerShip, obstaclesArray);
 
+#pragma region Setup Camera
+
+	setCameraSpeed(0);
 	cameraOffset.y *= y_size;
 	setCameraPosition(cameraOffset);
 	setCameraLookat(cameraLookat);
+
+#pragma endregion
+
+
 
 	while (glfwGetKey(gameWindow.getWindow(), GLFW_KEY_ESCAPE) != GLFW_PRESS && !gameWindow.closed())
 	{
@@ -111,8 +143,9 @@ int main() {
 
 		// example on how to get a key input
 		playerShip.SetRotation(glm::vec3(0.0f, 0.0f, 0.0f));
-
 		c += shipMoveSpeed;
+
+#pragma region Handle Input
 
 		if (gameWindow.isKeyPressed(GLFW_KEY_R))
 			reset(&playerShip, obstaclesArray);
@@ -158,9 +191,12 @@ int main() {
 			shipMoveSpeed += 0.1;
 		}
 
+#pragma endregion
+
+#pragma region Update Player and Camera
+
 		playerShip.SetScale(glm::vec3(2, 2, 2));
 		playerShip.SetTranslation(glm::vec3(b, a, -c));
-		//tempVec3 = getCameraPosition();
 		tempVec3 = playerShip.GetTranslation() + cameraOffset;
 		tempVec3.y *= offsetDamp;
 		tempVec3.x *= offsetDamp;
@@ -172,6 +208,10 @@ int main() {
 		cameraLightPos = getCameraPosition();
 		playerShip.Draw();
 
+#pragma endregion
+
+#pragma region Check Collisions
+
 		for (unsigned int i = 0; i < obstaclesArray.size(); i++)
 		{
 			obstaclesArray[i].Spawn();
@@ -181,6 +221,10 @@ int main() {
 				crash(&playerShip);
 			}
 		}
+
+#pragma endregion
+
+#pragma region Update Astroid Blocks
 
 		// if the camera is at the end of the block
 		if (getCameraPosition().z <= obstaclesArray[currentBlockIndex].GetOffset().z * spawn_count_y)
@@ -193,6 +237,8 @@ int main() {
 			blocksPassed++;
 			currentBlockIndex = blocksPassed % obstaclesArray.size();
 		}
+
+#pragma endregion
 
 		std::cout << "FPS: " << static_cast<int>(1 / deltaTime) << std::endl;
 
