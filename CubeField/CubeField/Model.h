@@ -18,6 +18,7 @@
 class Model
 {
 private:
+	GLuint ShaderID;
 	GLuint VertexArrayID;
 	GLuint MatrixID;
 	GLuint Texture;
@@ -49,8 +50,17 @@ public:
 	inline glm::vec3 GetScale() { return _scale; }
 	inline glm::vec3 GetMinBounds() { return _minBounds; }
 	inline glm::vec3 GetMaxBounds(){ return _maxBounds; }
+private:
+	void UpdateMatrices();
+	void CalculateLighting();
+	void Render();
 public:
-	static void InitShaders();
-	static GLuint ShaderID;
+	static glm::vec3 ambientColor;
+	static glm::vec3 diffusePosition;
+	static glm::vec3 cameraLightPos;
+	static glm::vec3 explosionLightPos;
+	static glm::vec3 diffuseColor;
+	static glm::vec3 cameraLightColor;
+	static glm::vec3 explosionLightColor;
 };
 
