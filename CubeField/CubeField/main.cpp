@@ -79,6 +79,7 @@ int main() {
 	Model astrd2(gameWindow.getWindow(), "Models/astrd_2.obj", "Models/Asteroid5.png");
 	Model astrd3(gameWindow.getWindow(), "Models/astrd_3.obj", "Models/BlueAsteroid.jpg");
 	Model astrd4(gameWindow.getWindow(), "Models/astrd_4.obj", "Models/Asteroid8.jpg");
+	Model background(gameWindow.getWindow(), "Models/background.obj", "Models/background.jpg");
 	astroids.push_back(&astrd1);
 	astroids.push_back(&astrd2);
 	astroids.push_back(&astrd3);
@@ -160,6 +161,9 @@ int main() {
 
 		playerShip.SetScale(glm::vec3(2, 2, 2));
 		playerShip.SetTranslation(glm::vec3(b, a, -c));
+		background.SetScale(glm::vec3(500, 500, 10000));
+		background.SetTranslation(glm::vec3(0, 0, 0));
+		background.SetRotation(glm::vec3(90, 0, 0));
 		//tempVec3 = getCameraPosition();
 		tempVec3 = playerShip.GetTranslation() + cameraOffset;
 		tempVec3.y *= offsetDamp;
@@ -170,6 +174,7 @@ int main() {
 		tempVec3.x *= lookatDamp;
 		setCameraLookat(tempVec3);
 		cameraLightPos = getCameraPosition();
+		background.Draw();
 		playerShip.Draw();
 
 		for (unsigned int i = 0; i < obstaclesArray.size(); i++)
