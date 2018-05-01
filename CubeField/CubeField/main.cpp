@@ -10,9 +10,13 @@
 
 #include <chrono>
 
-//void process_lighting();
+// functions
+
 void reset(Model* player, std::vector<ObstacleSpawner>& spawner);
 void crash(Model* player);
+
+
+// LightingVars
 
 glm::vec3 ambientColor = glm::vec3(0.2, 0.2, 0.1);
 glm::vec3 diffusePosition = glm::vec3(20.0, 50.0, 0.0);
@@ -27,6 +31,8 @@ glm::vec3 crashPos = glm::vec3(0, 0, 0);
 glm::vec3 startExplosionLightPos = glm::vec3(0, 0, 0);
 glm::vec3 offExplosionLightColor = glm::vec3(0, 0, 0);
 glm::vec3 onExplosionLightColor = glm::vec3(1.0, 0.6, 0.0);
+
+// Variables
 
 std::vector<Model*> astroids;
 
@@ -56,12 +62,17 @@ double deltaTime = 1.0;
 
 glm::vec3 tempVec3(0, 0, 0);
 
+
+
 int main() {
 
+// Setup Window
+	
 	Window gameWindow("Astroid Field", 1024, 768);
 	glClearColor(0.01f, 0.0f, 0.03f, 1.0f);
 	std::cout << "OpenGL" << glGetString(GL_VERSION) << std::endl;
 
+// Setup Lighting
 
 	Model::ambientColor = ambientColor;
 	Model::diffusePosition = diffusePosition;
@@ -71,14 +82,15 @@ int main() {
 	Model::explosionLightPos = explosionLightPos;
 	Model::explosionLightColor = explosionLightColor;
 
-	setCameraSpeed(0);
-
+// Load Models
 
 	Model playerShip(gameWindow.getWindow(), "Models/Ship_3.obj", "Models/Ship_tex.png");
 	Model astrd1(gameWindow.getWindow(), "Models/astrd_1.obj", "Models/FireAsteroid.jpg");
 	Model astrd2(gameWindow.getWindow(), "Models/astrd_2.obj", "Models/Asteroid5.png");
 	Model astrd3(gameWindow.getWindow(), "Models/astrd_3.obj", "Models/BlueAsteroid.jpg");
 	Model astrd4(gameWindow.getWindow(), "Models/astrd_4.obj", "Models/Asteroid8.jpg");
+
+// Populate Astroid Pool
 	Model background(gameWindow.getWindow(), "Models/background.obj", "Models/background.jpg");
 	astroids.push_back(&astrd1);
 	astroids.push_back(&astrd2);
@@ -96,8 +108,16 @@ int main() {
 	};
 	currentBlockIndex = blocksPassed % obstaclesArray.size();
 
+	astroids.push_back(&astrd1);
+	astroids.push_back(&astrd2);
+	astroids.push_back(&astrd3);
+	astroids.push_back(&astrd4);
+
 	reset(&playerShip, obstaclesArray);
 
+// Setup Camera
+
+	setCameraSpeed(0);
 	cameraOffset.y *= y_size;
 	setCameraPosition(cameraOffset);
 	setCameraLookat(cameraLookat);
@@ -112,8 +132,9 @@ int main() {
 
 		// example on how to get a key input
 		playerShip.SetRotation(glm::vec3(0.0f, 0.0f, 0.0f));
-
 		c += shipMoveSpeed;
+
+// Handle Input
 
 		if (gameWindow.isKeyPressed(GLFW_KEY_R))
 			reset(&playerShip, obstaclesArray);
@@ -159,9 +180,11 @@ int main() {
 			shipMoveSpeed += 0.1;
 		}
 
+// Update Player and Camera
+
 		playerShip.SetScale(glm::vec3(2, 2, 2));
 		playerShip.SetTranslation(glm::vec3(b, a, -c));
-		background.SetScale(glm::vec3(500, 500, 10000));
+		background.SetScale(glm::vec3(500, 500, 5000));
 		background.SetTranslation(glm::vec3(0, 0, 0));
 		background.SetRotation(glm::vec3(90, 0, 0));
 		//tempVec3 = getCameraPosition();
@@ -177,6 +200,8 @@ int main() {
 		background.Draw();
 		playerShip.Draw();
 
+// Check Collisions
+
 		for (unsigned int i = 0; i < obstaclesArray.size(); i++)
 		{
 			obstaclesArray[i].Spawn();
@@ -186,6 +211,8 @@ int main() {
 				crash(&playerShip);
 			}
 		}
+
+// Update Astroid Blocks
 
 		// if the camera is at the end of the block
 		if (getCameraPosition().z <= obstaclesArray[currentBlockIndex].GetOffset().z * spawn_count_y)

@@ -43,7 +43,7 @@ float horizontalAngle = 3.14f;
 // Initial vertical angle : none
 float verticalAngle = 0.0f;
 // Initial Field of View
-float initialFoV = 70.0f;
+float initialFoV = 75.0f;
 
 float speed = 6.0f;
 void setCameraSpeed(float _speed)
@@ -91,7 +91,7 @@ void computeMatricesFromInputs(GLFWwindow* window) {
 
 	float FoV = initialFoV;// - 5 * glfwGetMouseWheel(); // Now GLFW 3 requires setting up a callback for this. It's a bit too complicated for this beginner's tutorial, so it's disabled instead.
 
-	ProjectionMatrix = glm::perspective(glm::radians(FoV), 4.0f / 3.0f, 0.1f, 750.0f);
+	ProjectionMatrix = glm::perspective(glm::radians(FoV), 4.0f / 3.0f, 0.1f, 5000.0f);
 
 	ViewMatrix = glm::lookAt(
 		position,		      // Camera is here

@@ -5,6 +5,7 @@
 #include<iostream>
 #include<fstream>
 #include "PerlinGen.h"
+#include <math.h>
 
 int xsize = 50;
 int ysize = 50;

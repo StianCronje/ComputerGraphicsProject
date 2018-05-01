@@ -42,7 +42,7 @@ typedef double FN_DECIMAL;
 typedef float FN_DECIMAL;
 #endif
 
-class __declspec(dllexport) FastNoise
+class FastNoise
 {
 public:
 	explicit FastNoise(int seed = 1337) { SetSeed(seed); CalculateFractalBounding(); }
