@@ -7,22 +7,25 @@
 #include "ObstacleSpawner.h"
 #include "PerlinGen.h"
 #include "common/controls.hpp"
+#include "common/imgui.h"
+#include "common/imgui_impl_glfw_gl3.h"
 
 #include <chrono>
 
 // functions
 
-void reset(Model* player, std::vector<ObstacleSpawner>& spawner);
-void crash(Model* player);
+void reset(Model *player, std::vector<ObstacleSpawner> &spawner);
+void crash(Model *player);
+
 
 
 // LightingVars
 
-glm::vec3 ambientColor = glm::vec3(0.2, 0.2, 0.1);
+glm::vec3 ambientColor = glm::vec3(0.4, 0.4, 0.4);
 glm::vec3 diffusePosition = glm::vec3(20.0, 50.0, 0.0);
 glm::vec3 diffuseColor = glm::vec3(1.0, 1.0, 1.0);
 glm::vec3 cameraLightPos = glm::vec3(0, 0, 0);
-glm::vec3 cameraLightColor = glm::vec3(0.4, 0.6, 1.0);
+glm::vec3 cameraLightColor = glm::vec3(1.0, 1.0, 1.0);
 glm::vec3 explosionLightPos = glm::vec3(0, 0, 0);
 glm::vec3 explosionLightColor = glm::vec3(1.0, 0.6, 0.0);
 glm::vec3 specColor = glm::vec3(0.2, 0.2, 0.1);
@@ -34,7 +37,7 @@ glm::vec3 onExplosionLightColor = glm::vec3(1.0, 0.6, 0.0);
 
 // Variables
 
-std::vector<Model*> astroids;
+std::vector<Model *> astroids;
 
 float a = 0.0, b = 0.0, c = 0.0;
 glm::vec3 cameraOffset = glm::vec3(0, 0, 20);
@@ -47,6 +50,7 @@ float startShipMoveSpeed = 0.1;
 float shipTurnSpeed;
 float shipMoveSpeed;
 float shipTurnAngle;
+bool crashed = false;
 
 int spawn_count_x = 10;
 int spawn_count_y = 10;
@@ -62,17 +66,30 @@ double deltaTime = 1.0;
 
 glm::vec3 tempVec3(0, 0, 0);
 
+bool menuOpen = true;
 
+int score = 0;
+float scoreMult = 1.0f;
+int speedIncrInterval = 50;
+float speedIncr = 0.01f;
 
-int main() {
+int main()
+{
 
-// Setup Window
-	
+	// Setup Window
+
 	Window gameWindow("Astroid Field", 1024, 768);
 	glClearColor(0.01f, 0.0f, 0.03f, 1.0f);
 	std::cout << "OpenGL" << glGetString(GL_VERSION) << std::endl;
 
-// Setup Lighting
+	// Setup UI
+	ImGui::CreateContext();
+	ImGuiIO &io = ImGui::GetIO();
+	(void)io;
+	ImGui_ImplGlfwGL3_Init(gameWindow.getWindow(), true);
+	ImGui::StyleColorsDark();
+
+	// Setup Lighting
 
 	Model::ambientColor = ambientColor;
 	Model::diffusePosition = diffusePosition;
@@ -82,7 +99,7 @@ int main() {
 	Model::explosionLightPos = explosionLightPos;
 	Model::explosionLightColor = explosionLightColor;
 
-// Load Models
+	// Load Models
 
 	Model playerShip(gameWindow.getWindow(), "Models/Ship_3.obj", "Models/Ship_tex.png");
 	Model astrd1(gameWindow.getWindow(), "Models/astrd_1.obj", "Models/FireAsteroid.jpg");
@@ -90,8 +107,9 @@ int main() {
 	Model astrd3(gameWindow.getWindow(), "Models/astrd_3.obj", "Models/BlueAsteroid.jpg");
 	Model astrd4(gameWindow.getWindow(), "Models/astrd_4.obj", "Models/Asteroid8.jpg");
 
-// Populate Astroid Pool
+	// Populate Astroid Pool
 	Model background(gameWindow.getWindow(), "Models/background.obj", "Models/background.jpg");
+	Model lightPos(gameWindow.getWindow(), "Models/background.obj", "Models/background.jpg");
 	astroids.push_back(&astrd1);
 	astroids.push_back(&astrd2);
 	astroids.push_back(&astrd3);
@@ -104,8 +122,7 @@ int main() {
 	std::vector<ObstacleSpawner> obstaclesArray{
 		ObstacleSpawner(astroids),
 		ObstacleSpawner(astroids),
-		ObstacleSpawner(astroids)
-	};
+		ObstacleSpawner(astroids)};
 	currentBlockIndex = blocksPassed % obstaclesArray.size();
 
 	astroids.push_back(&astrd1);
@@ -115,7 +132,7 @@ int main() {
 
 	reset(&playerShip, obstaclesArray);
 
-// Setup Camera
+	// Setup Camera
 
 	setCameraSpeed(0);
 	cameraOffset.y *= y_size;
@@ -127,60 +144,103 @@ int main() {
 		gameWindow.clear();
 		frameStart = glfwGetTime();
 
-
 		//=== Loop Here ===
-
-		// example on how to get a key input
-		playerShip.SetRotation(glm::vec3(0.0f, 0.0f, 0.0f));
-		c += shipMoveSpeed;
-
-// Handle Input
-
-		if (gameWindow.isKeyPressed(GLFW_KEY_R))
+		lightPos.SetTranslation(Model::cameraLightPos);
+		lightPos.Draw();
+		if (gameWindow.isKeyPressed(GLFW_KEY_R) || io.KeysDown[GLFW_KEY_R])
 			reset(&playerShip, obstaclesArray);
 
-		if (gameWindow.isKeyPressed(GLFW_KEY_A))
+		if (gameWindow.isKeyPressed(GLFW_KEY_C) || io.KeysDown[GLFW_KEY_C])
 		{
-			std::cout << "'A' is pressed" << std::endl;
-			if (b >= -47) {
-				b -= shipTurnSpeed;
-				playerShip.SetRotation(glm::vec3(0.0f, 0.0f, shipTurnAngle));
-			}
+			crashed = true;
+			Model::cameraLightPos = playerShip.GetTranslation();
+
 		}
-		if (gameWindow.isKeyPressed(GLFW_KEY_S))
+		if (gameWindow.isKeyPressed(GLFW_KEY_A) || io.KeysDown[GLFW_KEY_A])
 		{
-			std::cout << "'S' is pressed" << std::endl;
-			if (a <= 55) {
-				a += shipTurnSpeed;
-				playerShip.SetRotation(glm::vec3(shipTurnAngle, 0.0f, 0.0f));
-			}
+			Model::cameraLightPos.x -= 0.1f;
 		}
-		if (gameWindow.isKeyPressed(GLFW_KEY_W))
+		if (gameWindow.isKeyPressed(GLFW_KEY_S) || io.KeysDown[GLFW_KEY_S])
 		{
 
-			std::cout << "'W' is pressed" << std::endl;
-			if (a >= -17) {
-				a -= shipTurnSpeed;
-				playerShip.SetRotation(glm::vec3(-shipTurnAngle, 0.0f, 0.0f));
-			}
+			Model::cameraLightPos.y -= 0.1f;
 		}
-		if (gameWindow.isKeyPressed(GLFW_KEY_D))
+		if (gameWindow.isKeyPressed(GLFW_KEY_W) || io.KeysDown[GLFW_KEY_W])
 		{
-			std::cout << "'D' is pressed" << std::endl;
-			if (b <= 47) {
-				b += shipTurnSpeed;
-				playerShip.SetRotation(glm::vec3(0.0f, 0.0f, -shipTurnAngle));
-			}
+			Model::cameraLightPos.y += 0.1f;
+		}
+		if (gameWindow.isKeyPressed(GLFW_KEY_D) || io.KeysDown[GLFW_KEY_D])
+		{
+
+			Model::cameraLightPos.x += 0.1f;
+		}
+		if (gameWindow.isKeyPressed(GLFW_KEY_Q) || io.KeysDown[GLFW_KEY_Q])
+		{
+			Model::cameraLightPos.z += 0.1f;
+		}
+		if (gameWindow.isKeyPressed(GLFW_KEY_Z) || io.KeysDown[GLFW_KEY_Z])
+		{
+			Model::cameraLightPos.z -= 0.1f;		
 		}
 
-		// example on how to get mouse buttons
-		if (gameWindow.isMouseButtonPressed(GLFW_MOUSE_BUTTON_1))
+		if (!crashed)
 		{
-			std::cout << "camspeed: " << getCameraSpeed() << std::endl;
-			shipMoveSpeed += 0.1;
+			playerShip.SetRotation(glm::vec3(0.0f, 0.0f, 0.0f));
+			c += shipMoveSpeed;
+
+			// Handle Input
+			if (gameWindow.isKeyPressed(GLFW_KEY_A) || io.KeysDown[GLFW_KEY_A])
+			{
+				std::cout << "'A' is pressed" << std::endl;
+				if (b >= -47)
+				{
+					b -= shipTurnSpeed;
+					playerShip.SetRotation(glm::vec3(0.0f, 0.0f, shipTurnAngle));
+				}
+			}
+			if (gameWindow.isKeyPressed(GLFW_KEY_S) || io.KeysDown[GLFW_KEY_S])
+			{
+				std::cout << "'S' is pressed" << std::endl;
+				if (a <= 55)
+				{
+					a += shipTurnSpeed;
+					playerShip.SetRotation(glm::vec3(shipTurnAngle, 0.0f, 0.0f));
+				}
+			}
+			if (gameWindow.isKeyPressed(GLFW_KEY_W) || io.KeysDown[GLFW_KEY_W])
+			{
+
+				std::cout << "'W' is pressed" << std::endl;
+				if (a >= -17)
+				{
+					a -= shipTurnSpeed;
+					playerShip.SetRotation(glm::vec3(-shipTurnAngle, 0.0f, 0.0f));
+				}
+			}
+			if (gameWindow.isKeyPressed(GLFW_KEY_D) || io.KeysDown[GLFW_KEY_D])
+			{
+				std::cout << "'D' is pressed" << std::endl;
+				if (b <= 47)
+				{
+					b += shipTurnSpeed;
+					playerShip.SetRotation(glm::vec3(0.0f, 0.0f, -shipTurnAngle));
+				}
+			}
+
+			// example on how to get mouse buttons
+			if (gameWindow.isMouseButtonPressed(GLFW_MOUSE_BUTTON_1))
+			{
+				std::cout << "camspeed: " << getCameraSpeed() << std::endl;
+				shipMoveSpeed += 0.1;
+			}
+
+			score = c * scoreMult;
+
+			if (score % speedIncrInterval == 0)
+				shipMoveSpeed += speedIncr;
 		}
 
-// Update Player and Camera
+		// Update Player and Camera
 
 		playerShip.SetScale(glm::vec3(2, 2, 2));
 		playerShip.SetTranslation(glm::vec3(b, a, -c));
@@ -192,15 +252,18 @@ int main() {
 		tempVec3.y *= offsetDamp;
 		tempVec3.x *= offsetDamp;
 		setCameraPosition(tempVec3);
+		// Model::cameraLightPos.x = tempVec3.x;
+		// Model::cameraLightPos.y = tempVec3.z;
+		// Model::cameraLightPos.z = tempVec3.y;
+		std::cout << Model::cameraLightPos.x << ", " << Model::cameraLightPos.y << ", " << Model::cameraLightPos.z << std::endl;
 		tempVec3 = playerShip.GetTranslation() + cameraLookat;
 		tempVec3.y *= lookatDamp;
 		tempVec3.x *= lookatDamp;
 		setCameraLookat(tempVec3);
-		cameraLightPos = getCameraPosition();
 		background.Draw();
 		playerShip.Draw();
 
-// Check Collisions
+		// Check Collisions
 
 		for (unsigned int i = 0; i < obstaclesArray.size(); i++)
 		{
@@ -212,7 +275,7 @@ int main() {
 			}
 		}
 
-// Update Astroid Blocks
+		// Update Astroid Blocks
 
 		// if the camera is at the end of the block
 		if (getCameraPosition().z <= obstaclesArray[currentBlockIndex].GetOffset().z * spawn_count_y)
@@ -226,6 +289,14 @@ int main() {
 			currentBlockIndex = blocksPassed % obstaclesArray.size();
 		}
 
+		// Render UI
+		ImGui_ImplGlfwGL3_NewFrame();
+		ImGui::Begin("", &menuOpen, ImGuiWindowFlags_NoInputs | ImGuiWindowFlags_NoFocusOnAppearing | ImGuiWindowFlags_NoTitleBar);
+		ImGui::Text("Score: %d", score);
+		ImGui::End();
+		ImGui::Render();
+		ImGui_ImplGlfwGL3_RenderDrawData(ImGui::GetDrawData());
+
 		std::cout << "FPS: " << static_cast<int>(1 / deltaTime) << std::endl;
 
 		//=== End Loop ===
@@ -234,10 +305,13 @@ int main() {
 		gameWindow.update();
 	}
 
+	ImGui_ImplGlfwGL3_Shutdown();
+	ImGui::DestroyContext();
+
 	return 0;
 }
 
-void reset(Model* player, std::vector<ObstacleSpawner>& spawner)
+void reset(Model *player, std::vector<ObstacleSpawner> &spawner)
 {
 	// reset player pos and input
 	a = b = c = 0.0;
@@ -251,18 +325,20 @@ void reset(Model* player, std::vector<ObstacleSpawner>& spawner)
 	Model::explosionLightPos = startExplosionLightPos;
 
 	// reset obstacle pos
+	blocksPassed = 0;
 	for (int i = 0; i < spawner.size(); i++)
 	{
 		spawner[i].SetOffset(glm::vec3(-x_size / 4, 0, -z_size * (i + 1)));
 		spawner[i].Generate(spawn_count_x, spawn_count_y, x_size, y_size, z_size);
 		std::cout << "Spawn Block at Z: " << spawner[i].GetOffset().z << std::endl;
 	}
-
+	crashed = false;
 }
 
-void crash(Model* player)
+void crash(Model *player)
 {
-	Model::explosionLightPos =  player->GetTranslation() + glm::vec3(0, 1, 0);
+	crashed = true;
+	Model::explosionLightPos = player->GetTranslation() + glm::vec3(0, 1, 0);
 	Model::explosionLightColor = onExplosionLightColor * glm::vec3(2, 2, 2);
 	shipMoveSpeed = 0;
 	shipTurnSpeed = 0;
