@@ -1,11 +1,11 @@
-# Blender MTL File: 'astroids.blend'
+# Blender MTL File: 'cylinder-notop.blend'
 # Material Count: 1
 
-newmtl Standard_1
+newmtl b0b0b0
 Ns 96.078431
 Ka 1.000000 1.000000 1.000000
-Kd 0.467451 0.467451 0.467451
-Ks 0.449020 0.449020 0.449020
+Kd 0.690196 0.690196 0.690196
+Ks 0.009961 0.009961 0.009961
 Ke 0.000000 0.000000 0.000000
 Ni 1.000000
 d 1.000000
