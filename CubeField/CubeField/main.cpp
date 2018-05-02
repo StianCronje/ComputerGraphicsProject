@@ -48,7 +48,7 @@ float startShipTurnSpeed = 0.5;
 float startShipTurnAngle = 25;
 float startShipMoveSpeed = 0.1;
 float shipTurnSpeed;
-float shipMoveSpeed;
+float shipMoveSpeed = 2.0f;;
 float shipTurnAngle;
 bool crashed = false;
 
@@ -193,13 +193,6 @@ int main()
 				}
 			}
 
-			// example on how to get mouse buttons
-			if (gameWindow.isMouseButtonPressed(GLFW_MOUSE_BUTTON_1))
-			{
-				std::cout << "camspeed: " << getCameraSpeed() << std::endl;
-				shipMoveSpeed += 0.1;
-			}
-
 			score = c * scoreMult;
 
 			if (score % speedIncrInterval == 0)
@@ -255,20 +248,22 @@ int main()
 
 		// Render UI
 		ImGui_ImplGlfwGL3_NewFrame();
-		ImGui::Begin("", &menuOpen, ImGuiWindowFlags_NoFocusOnAppearing | ImGuiWindowFlags_NoTitleBar);
+		ImGui::Begin("Score", &menuOpen, ImGuiWindowFlags_NoFocusOnAppearing | ImGuiWindowFlags_NoTitleBar | ImGuiWindowFlags_NoResize);
 		ImGui::SetWindowPos(ImVec2(0.0f, 0.0f));
 		ImGui::SetWindowSize(ImVec2(100.0f, 10.0f));
 		ImGui::Text("Score: %d", score);
+		ImGui::End();
 		if(crashed)
 		{
-			ImGui::SetWindowSize(ImVec2(100.0f, 55.0f));
-			if(ImGui::Button("Reset"))
+			ImGui::SetNextWindowPosCenter(ImGuiCond_Once);
+			ImGui::Begin("Crashed!", &menuOpen, ImGuiWindowFlags_NoFocusOnAppearing | ImGuiWindowFlags_NoResize | ImGuiWindowFlags_NoCollapse);
+			ImGui::SetWindowSize(ImVec2(200.0f, 80.0f));
+			if(ImGui::Button("Reset [R]", ImVec2(185, 40)))
 			{
-				std::cout << "reseted" << std::endl;
 				reset(&playerShip, obstaclesArray);
 			}
+			ImGui::End();
 		}
-		ImGui::End();
 		ImGui::Render();
 		ImGui_ImplGlfwGL3_RenderDrawData(ImGui::GetDrawData());
 
