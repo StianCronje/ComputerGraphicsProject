@@ -8,11 +8,12 @@
 
 void calculate_bounds(std::vector<glm::vec3>& verts, glm::vec3& minBounds, glm::vec3& maxBounds);
 
+
+glm::vec3 Model::directionalLightDir;
+glm::vec3 Model::directionalLightColor;
 glm::vec3 Model::ambientColor;
-glm::vec3 Model::diffusePosition;
 glm::vec3 Model::cameraLightPos;
 glm::vec3 Model::explosionLightPos;
-glm::vec3 Model::diffuseColor;
 glm::vec3 Model::cameraLightColor;
 glm::vec3 Model::explosionLightColor;
 
@@ -23,20 +24,17 @@ Model::Model(GLFWwindow* window, const char* modelPath, const char* texturePath)
 	glGenVertexArrays(1, &VertexArrayID);
 	glBindVertexArray(VertexArrayID);
 
-	// Create and compile our GLSL program from the shaders
-	// Model::ShaderID = LoadShaders("TransformVertexShader.vertexshader", "TextureFragmentShader.fragmentshader");
-	ShaderID = LoadShaders("vert.glsl", "frag.glsl");
+	ShaderID = LoadShaders("vert.glsl", "lighting_fragment.glsl");
 
 	// Get a handle for our "MVP" uniform
 	MatrixID = glGetUniformLocation(ShaderID, "MVP");
 
 	// Load the texture
-	//GLuint Texture = loadtextures("L200-OBJ/truck_color.jpg");
 	Texture = loadtextures(texturePath);
 
 
 	// Get a handle for our "myTextureSampler" uniform
-	TextureID = glGetUniformLocation(ShaderID, "myTextureSampler");
+	TextureID = glGetUniformLocation(ShaderID, "material.diffuse");
 
 	// Read our .obj file
 	bool res = loadOBJ(modelPath, vertices, uvs, normals);
@@ -92,40 +90,56 @@ void Model::UpdateMatrices()
 	// Send our transformation to the currently bound shader, 
 	// in the "MVP" uniform
 	glUniformMatrix4fv(MatrixID, 1, GL_FALSE, &MVP[0][0]);
+	
 }
 void Model::CalculateLighting()
 {
-	// Set the ambient light color
-	GLint Ambient_Light_color = glGetUniformLocation(ShaderID, "ambientColor");
-	glUniform3fv(Ambient_Light_color, 1, glm::value_ptr(Model::ambientColor));
-
-	//Diffuse Staff
-	// Set the Diffuse light Position
-	GLint Diffuse_Light_position = glGetUniformLocation(ShaderID, "lightPos");
-	glUniform3fv(Diffuse_Light_position, 1, glm::value_ptr(Model::diffusePosition));
-	GLint Camera_Light_position = glGetUniformLocation(ShaderID, "cameraLightPos");
-	glUniform3fv(Camera_Light_position, 1, glm::value_ptr(Model::cameraLightPos));
-	GLint Explosion_Light_position = glGetUniformLocation(ShaderID, "explosionLightPos");
-	glUniform3fv(Explosion_Light_position, 1, glm::value_ptr(Model::explosionLightPos));
-	// Set the Diffuse light Position
-	GLint Diffuse_Light_color = glGetUniformLocation(ShaderID, "lightColor");
-	glUniform3fv(Diffuse_Light_color, 1, glm::value_ptr(Model::diffuseColor));
-	GLint Camera_Light_color = glGetUniformLocation(ShaderID, "cameraLightColor");
-	glUniform3fv(Camera_Light_color, 1, glm::value_ptr(Model::cameraLightColor));
-	GLint Explosion_Light_color = glGetUniformLocation(ShaderID, "explosionLightColor");
-	glUniform3fv(Explosion_Light_color, 1, glm::value_ptr(Model::explosionLightColor));
-
-	//Specular Staff
-	//Set the Cameraposition (eye location)
-	GLint eye_location = glGetUniformLocation(ShaderID, "vertexPosition_cameraspace");
 	glm::vec3 CameraPosition = getCameraPosition();
-	glUniform3fv(eye_location, 1, glm::value_ptr(CameraPosition));
-	//Set the specular color
-	GLint Spec_Light_color = glGetUniformLocation(ShaderID, "specColor");
-	glUniform3fv(Spec_Light_color, 1, glm::value_ptr(Model::diffuseColor));
-	// Set the Specular light Position
-	GLint Spec_Light_position = glGetUniformLocation(ShaderID, "speclightPos");
-	glUniform3fv(Spec_Light_position, 1, glm::value_ptr(Model::diffusePosition));
+	glUniform3fv( glGetUniformLocation(ShaderID, "viewPos"), 1, glm::value_ptr(CameraPosition));
+	glUniform1f( glGetUniformLocation(ShaderID, "material.shininess"), 32.0f);
+
+	//directional light
+	glUniform3fv( glGetUniformLocation(ShaderID, "dirLight.direction"), 1, glm::value_ptr(Model::directionalLightDir));
+	glUniform3fv( glGetUniformLocation(ShaderID, "dirLight.ambient"), 1, glm::value_ptr(glm::vec3(0.2f)));
+	glUniform3fv( glGetUniformLocation(ShaderID, "dirLight.diffuse"), 1, glm::value_ptr(Model::directionalLightColor));
+	glUniform3fv( glGetUniformLocation(ShaderID, "dirLight.specular"), 1, glm::value_ptr(glm::vec3(0.5f, 0.5f, 0.5f)));
+
+
+	//point light 1
+	glUniform3fv( glGetUniformLocation(ShaderID, "pointLights[0].position"), 1, glm::value_ptr(Model::cameraLightPos));
+	glUniform3fv( glGetUniformLocation(ShaderID, "pointLights[0].ambient"), 1, glm::value_ptr(glm::vec3(0.05f)));
+	glUniform3fv( glGetUniformLocation(ShaderID, "pointLights[0].diffuse"), 1, glm::value_ptr(Model::cameraLightColor));
+	glUniform3fv( glGetUniformLocation(ShaderID, "pointLights[0].specular"), 1, glm::value_ptr(glm::vec3(1.0f)));
+	glUniform1f( glGetUniformLocation(ShaderID, "pointLights[0].constant"), 1.0f);
+	glUniform1f( glGetUniformLocation(ShaderID, "pointLights[0].linear"), 0.09f);
+	glUniform1f( glGetUniformLocation(ShaderID, "pointLights[0].quadratic"), 0.032f);
+
+	//point light 2
+	glUniform3fv( glGetUniformLocation(ShaderID, "pointLights[1].position"), 1, glm::value_ptr(Model::explosionLightPos));
+	glUniform3fv( glGetUniformLocation(ShaderID, "pointLights[1].ambient"), 1, glm::value_ptr(glm::vec3(0.05f)));
+	glUniform3fv( glGetUniformLocation(ShaderID, "pointLights[1].diffuse"), 1, glm::value_ptr(Model::explosionLightColor));
+	glUniform3fv( glGetUniformLocation(ShaderID, "pointLights[1].specular"), 1, glm::value_ptr(glm::vec3(1.0f)));
+	glUniform1f( glGetUniformLocation(ShaderID, "pointLights[1].constant"), 1.0f);
+	glUniform1f( glGetUniformLocation(ShaderID, "pointLights[1].linear"), 0.09f);
+	glUniform1f( glGetUniformLocation(ShaderID, "pointLights[1].quadratic"), 0.032f);
+
+	//point light 3
+	glUniform3fv( glGetUniformLocation(ShaderID, "pointLights[2].position"), 1, glm::value_ptr(glm::vec3(0.0f)));
+	glUniform3fv( glGetUniformLocation(ShaderID, "pointLights[2].ambient"), 1, glm::value_ptr(glm::vec3(0.05f)));
+	glUniform3fv( glGetUniformLocation(ShaderID, "pointLights[2].diffuse"), 1, glm::value_ptr(glm::vec3(0.8f)));
+	glUniform3fv( glGetUniformLocation(ShaderID, "pointLights[2].specular"), 1, glm::value_ptr(glm::vec3(1.0f)));
+	glUniform1f( glGetUniformLocation(ShaderID, "pointLights[2].constant"), 1.0f);
+	glUniform1f( glGetUniformLocation(ShaderID, "pointLights[2].linear"), 0.09f);
+	glUniform1f( glGetUniformLocation(ShaderID, "pointLights[2].quadratic"), 0.032f);
+
+	//point light 4
+	// glUniform3fv( glGetUniformLocation(ShaderID, "pointLights[3].position"), 1, glm::value_ptr(pointLightPositions[3]));
+	// glUniform3fv( glGetUniformLocation(ShaderID, "pointLights[3].ambient"), 1, glm::value_ptr(glm::vec3(0.05f)));
+	// glUniform3fv( glGetUniformLocation(ShaderID, "pointLights[3].diffuse"), 1, glm::value_ptr(glm::vec3(0.8f)));
+	// glUniform3fv( glGetUniformLocation(ShaderID, "pointLights[3].specular"), 1, glm::value_ptr(glm::vec3(1.0f)));
+	// glUniform1f( glGetUniformLocation(ShaderID, "pointLights[3].constant"), 1.0f);
+	// glUniform1f( glGetUniformLocation(ShaderID, "pointLights[3].linear"), 0.09f);
+	// glUniform1f( glGetUniformLocation(ShaderID, "pointLights[3].quadratic"), 0.032f);
 }
 void Model::Render()
 {
@@ -133,7 +147,8 @@ void Model::Render()
 	glActiveTexture(GL_TEXTURE0);
 	glBindTexture(GL_TEXTURE_2D, Texture);
 	// Set our "myTextureSampler" sampler to use Texture Unit 0
-	glUniform1i(TextureID, 0);
+	glUniform1i(glGetUniformLocation(ShaderID, "material.diffuse"), 0);
+	glUniform1i(glGetUniformLocation(ShaderID, "material.specular"), 0);
 
 	// 1rst attribute buffer : vertices
 	glEnableVertexAttribArray(0);

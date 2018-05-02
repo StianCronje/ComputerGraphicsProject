@@ -55,11 +55,11 @@ private:
 	void CalculateLighting();
 	void Render();
 public:
+	static glm::vec3 directionalLightDir;
+	static glm::vec3 directionalLightColor;
 	static glm::vec3 ambientColor;
-	static glm::vec3 diffusePosition;
 	static glm::vec3 cameraLightPos;
 	static glm::vec3 explosionLightPos;
-	static glm::vec3 diffuseColor;
 	static glm::vec3 cameraLightColor;
 	static glm::vec3 explosionLightColor;
 };

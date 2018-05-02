@@ -18,10 +18,8 @@ out vec3 FragPos;
 // Values that stay constant for the whole mesh.
 uniform mat4 MVP,trans;
 
-void main(){
-
-	// Output position of the vertex, in clip space : MVP * position
-//	gl_Position =   MVP * vec4(vertexPosition_modelspace,1);
+void main()
+{
 	gl_Position =   MVP *trans* vec4(vertexPosition_modelspace,1);
 	
 	// UV of the vertex. No special space for this one.
