@@ -21,9 +21,9 @@ void crash(Model *player);
 
 // LightingVars
 
-glm::vec3 ambientColor = glm::vec3(0.4, 0.4, 0.4);
-glm::vec3 diffusePosition = glm::vec3(20.0, 50.0, 0.0);
-glm::vec3 diffuseColor = glm::vec3(1.0, 1.0, 1.0);
+glm::vec3 dirLightDir = glm::vec3(-0.4f, 0.0f, 0.0f);
+glm::vec3 dirLightColor = glm::vec3(0.95f, 0.95f, 0.77f);
+glm::vec3 ambientColor = glm::vec3(0.6f);
 glm::vec3 cameraLightPos = glm::vec3(0, 0, 0);
 glm::vec3 cameraLightColor = glm::vec3(1.0, 1.0, 1.0);
 glm::vec3 explosionLightPos = glm::vec3(0, 0, 0);
@@ -91,9 +91,9 @@ int main()
 
 	// Setup Lighting
 
+	Model::directionalLightDir = dirLightDir;
+	Model::directionalLightColor = dirLightColor;
 	Model::ambientColor = ambientColor;
-	Model::diffusePosition = diffusePosition;
-	Model::diffuseColor = diffuseColor;
 	Model::cameraLightPos = cameraLightPos;
 	Model::cameraLightColor = cameraLightColor;
 	Model::explosionLightPos = explosionLightPos;
@@ -109,7 +109,6 @@ int main()
 
 	// Populate Astroid Pool
 	Model background(gameWindow.getWindow(), "Models/background.obj", "Models/background.jpg");
-	Model lightPos(gameWindow.getWindow(), "Models/background.obj", "Models/background.jpg");
 	astroids.push_back(&astrd1);
 	astroids.push_back(&astrd2);
 	astroids.push_back(&astrd3);
@@ -145,43 +144,10 @@ int main()
 		frameStart = glfwGetTime();
 
 		//=== Loop Here ===
-		lightPos.SetTranslation(Model::cameraLightPos);
-		lightPos.Draw();
+		
 		if (gameWindow.isKeyPressed(GLFW_KEY_R) || io.KeysDown[GLFW_KEY_R])
 			reset(&playerShip, obstaclesArray);
 
-		if (gameWindow.isKeyPressed(GLFW_KEY_C) || io.KeysDown[GLFW_KEY_C])
-		{
-			crashed = true;
-			Model::cameraLightPos = playerShip.GetTranslation();
-
-		}
-		if (gameWindow.isKeyPressed(GLFW_KEY_A) || io.KeysDown[GLFW_KEY_A])
-		{
-			Model::cameraLightPos.x -= 0.1f;
-		}
-		if (gameWindow.isKeyPressed(GLFW_KEY_S) || io.KeysDown[GLFW_KEY_S])
-		{
-
-			Model::cameraLightPos.y -= 0.1f;
-		}
-		if (gameWindow.isKeyPressed(GLFW_KEY_W) || io.KeysDown[GLFW_KEY_W])
-		{
-			Model::cameraLightPos.y += 0.1f;
-		}
-		if (gameWindow.isKeyPressed(GLFW_KEY_D) || io.KeysDown[GLFW_KEY_D])
-		{
-
-			Model::cameraLightPos.x += 0.1f;
-		}
-		if (gameWindow.isKeyPressed(GLFW_KEY_Q) || io.KeysDown[GLFW_KEY_Q])
-		{
-			Model::cameraLightPos.z += 0.1f;
-		}
-		if (gameWindow.isKeyPressed(GLFW_KEY_Z) || io.KeysDown[GLFW_KEY_Z])
-		{
-			Model::cameraLightPos.z -= 0.1f;		
-		}
 
 		if (!crashed)
 		{
@@ -247,14 +213,12 @@ int main()
 		background.SetScale(glm::vec3(500, 500, 5000));
 		background.SetTranslation(glm::vec3(0, 0, 0));
 		background.SetRotation(glm::vec3(90, 0, 0));
-		//tempVec3 = getCameraPosition();
+		// Model::cameraLightPos = playerShip.GetTranslation();
+		
 		tempVec3 = playerShip.GetTranslation() + cameraOffset;
 		tempVec3.y *= offsetDamp;
 		tempVec3.x *= offsetDamp;
 		setCameraPosition(tempVec3);
-		// Model::cameraLightPos.x = tempVec3.x;
-		// Model::cameraLightPos.y = tempVec3.z;
-		// Model::cameraLightPos.z = tempVec3.y;
 		std::cout << Model::cameraLightPos.x << ", " << Model::cameraLightPos.y << ", " << Model::cameraLightPos.z << std::endl;
 		tempVec3 = playerShip.GetTranslation() + cameraLookat;
 		tempVec3.y *= lookatDamp;
@@ -291,8 +255,16 @@ int main()
 
 		// Render UI
 		ImGui_ImplGlfwGL3_NewFrame();
-		ImGui::Begin("", &menuOpen, ImGuiWindowFlags_NoInputs | ImGuiWindowFlags_NoFocusOnAppearing | ImGuiWindowFlags_NoTitleBar);
+		ImGui::Begin("", &menuOpen, ImGuiWindowFlags_NoFocusOnAppearing | ImGuiWindowFlags_NoTitleBar);
 		ImGui::Text("Score: %d", score);
+		if(crashed)
+		{
+			if(ImGui::Button("Reset"))
+			{
+				std::cout << "reseted" << std::endl;
+				reset(&playerShip, obstaclesArray);
+			}
+		}
 		ImGui::End();
 		ImGui::Render();
 		ImGui_ImplGlfwGL3_RenderDrawData(ImGui::GetDrawData());

@@ -15,7 +15,7 @@ out vec3 color;
 
 
 // Values that stay constant for the whole mesh.
-uniform sampler2D myTextureSampler;
+uniform sampler2D myTexture;
 
 //Ambient
 uniform vec3 ambientColor;
@@ -32,7 +32,7 @@ uniform vec3 explosionLightColor;
 //Specular staff
 uniform vec3 specColor;
 uniform vec3 speclightPos;
-uniform vec3 vertexPosition_cameraspace;
+uniform vec3 viewDir;
 
 void main()
 {
@@ -51,13 +51,13 @@ void main()
 
 	// Specular
 	float specularStrength = 0.4f;
-    vec3 viewDir = normalize(vertexPosition_cameraspace - FragPos);
+    vec3 viewDir = normalize(viewDir - FragPos);
 	vec3 speclightDir = normalize(speclightPos - FragPos);
     vec3 reflectDir = reflect(-speclightDir, norm);  
     float spec = pow(max(dot(viewDir, reflectDir), 0.0), 16);
     vec3 specular = specularStrength * spec * specColor;  
 
 	// The final color calculation 
-    vec3 result = texture(myTextureSampler, UV).rgb * (ambient + diffuse + specular);
+    vec3 result = texture(myTexture, UV).rgb * (ambient + diffuse + specular);
 	color = result;
 }
