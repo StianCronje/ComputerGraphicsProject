@@ -71,7 +71,7 @@ bool menuOpen = true;
 int score = 0;
 float scoreMult = 1.0f;
 int speedIncrInterval = 50;
-float speedIncr = 0.01f;
+float speedIncr = 0.02f;
 
 int main()
 {
@@ -256,9 +256,12 @@ int main()
 		// Render UI
 		ImGui_ImplGlfwGL3_NewFrame();
 		ImGui::Begin("", &menuOpen, ImGuiWindowFlags_NoFocusOnAppearing | ImGuiWindowFlags_NoTitleBar);
+		ImGui::SetWindowPos(ImVec2(0.0f, 0.0f));
+		ImGui::SetWindowSize(ImVec2(100.0f, 10.0f));
 		ImGui::Text("Score: %d", score);
 		if(crashed)
 		{
+			ImGui::SetWindowSize(ImVec2(100.0f, 55.0f));
 			if(ImGui::Button("Reset"))
 			{
 				std::cout << "reseted" << std::endl;
